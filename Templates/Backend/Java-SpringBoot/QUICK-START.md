@@ -1,4 +1,21 @@
-# ⚡ QUICK START: The Autonomous Java-SpringBoot Master Directive (Otonom Komut Şablonu)
+## SEQUENCE-ENGINE v1 (ZORUNLU)
+Bu template ile calisirken sirayi bozmak YASAK:
+1) QUICK-START.md
+2) 01-Planning.md
+3) 02-Architecture.md
+4) 03-StepByStep.md
+5) 04-FilesStructure.md
+6) 05-DebugTips.md
+7) 06-Resources.md
+
+Kural:
+- Her dosyadan sonra 3-5 maddelik "cikarim ozeti" yaz.
+- Ozeti yazmadan sonraki dosyaya gecme.
+- 7 dosya tamamlanmadan kod uretimine baslama.
+- Bu akisin detay standardi: Templates/_Universal/TEMPLATE-SEQUENCE-ENGINE.md
+
+---
+# ⚡ QUICK START: The Autonomous Java-SpringBoot Master Directive (Otonom Komut Sablonu)
 
 > **DİKKAT:** Bu dosya VibeCoding Otonom Zeka asistanlarının bir Java Spring Boot projesi başlatırken okuması ve HARFİYEN uygulaması gereken ana master prompt komutlarını içerir. Otonomi bu kilit dosyadaki ZORUNLU MÜHÜRLERİ okumadan mimariyi inşaa edemez!
 > 
@@ -6,7 +23,7 @@
 
 ---
 
-## 🛑 OTONOM ZEKANIN 5 ALTIN KURALI VEYA "ÇELİK MÜHÜRLERİ"
+## OTONOM ZEKANIN 5 ALTIN KURALI VEYA "ÇELİK MÜHÜRLERİ"
 
 Bir otonom ajan, kullanıcıdan (Müşteri/Sizden) "Bana Java Spring Boot API (Backend) yaz" komutunu aldığı anda aşağıdaki sarsılmaz mimari kararları otomatikman devreye sokmak ZORUNDADIR.
 
@@ -35,7 +52,7 @@ Kurumsal bir Uygulamanın default özelliği Güvenliktir. Spring Boot default k
 
 ---
 
-## 🚀 THE MİMARİ OTONOM BAŞLATMA KOMUTLARI (MAVEN / GRADLE ZİNCİRİ)
+## THE MİMARİ OTONOM BAGLATMA KOMUTLARI (MAVEN / GRADLE ZİNCİRİ)
 
 AI'ın asistan olarak projeyi başlatırken kullanacağı terminal yürütme bandı!
 Eğer Spring Initializr (Web Arayüzü) yoksa POM dosyası Zırhlanır!
@@ -78,3 +95,4 @@ Eğer Spring Initializr (Web Arayüzü) yoksa POM dosyası Zırhlanır!
 
 **Mimar! Bu belgedeki kurallar, "İyi bir fikir" değil; Enterprise Uygulama Otonomisinin KIRILAMAZ ANAYASASIDIR!**
 Sistemi inşa etmeye başlayabilirsin! Başarılar!
+

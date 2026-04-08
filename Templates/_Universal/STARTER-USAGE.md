@@ -51,7 +51,7 @@ Seçilen template'te starter/ klasörü var mı?
 ### ADIM 3: Çalıştır ve Test Et
 ```
 - flutter run / npm run dev / dotnet run / python manage.py runserver
-- Hata var mı? → ERROR-PATTERNS.md'ye bak
+- Hata var mı? → Domain-Quality-Ops/ERROR-PATTERNS.md'ye bak
 - Çalışıyorsa → ADIM 4'e geç
 ```
 
@@ -93,7 +93,7 @@ Screen/Page eklerken:
 
 ### ADIM 6: Production Checklist
 ```
-- PRODUCTION-CHECKLIST.md'yi çalıştır
+- Domain-Quality-Ops/PRODUCTION-CHECKLIST.md'yi çalıştır
 - Tüm maddeler ✅ mi?
 - Değilse çöz
 ```

@@ -24,6 +24,25 @@ AI ÇIKTISI:
 
 ## 📋 TAM OTONOM AKIŞ (AI İçin)
 
+### FAZE 0: CONTEXT ENGINEERING BOOTSTRAP (0-3 dakika)
+
+```
+0. AUTONOMY-BRAIN.md oku
+    → Prompt ezberi yerine proje hafızasıyla çalışma modunu aç
+
+1. Proje kökünde zorunlu hafıza dosyalarını kontrol et:
+    - AI_DEVELOPMENT_LOG.md
+    - AI_ERROR_LEDGER.md
+    - AI_FEATURE_LEDGER.md
+    - AI_CHAT_LEDGER.md
+    - AI_DECISION_LOG.md
+
+2. Bu dosyaları sondan başa hızlı tarayarak "Son Bilinen Durum" çıkar:
+    → En son tamamlanan görev
+    → Açık kalan hata
+    → Bekleyen kullanıcı talimatı
+```
+
 ### FAZE 1: ZORUNLU HAFIZA KONTROLÜ VE HAZIRLIK (0-5 dakika)
 
 ```
@@ -34,6 +53,10 @@ AI ÇIKTISI:
    → Projenin kök dizininde `AI_DEVELOPMENT_LOG.md` (veya FILE-TRACKER.md) var mı bak.
    → Varsa: En son nerede kalındığını, hangi hataların çözüldüğünü OKU. (Amnesia Engelleyici)
    → Yoksa: Dosyayı YARAT ve "Proje Başlangıcı" olarak ilk kaydını düş.
+
+2.1 Chat Talimat Kaydı:
+    → Kullanıcının son mesajını `AI_CHAT_LEDGER.md` dosyasına yaz.
+    → Talimat tipini etiketle (feature/fix/refactor/infra/deploy).
 
 3. Proje fikrini analiz et:
    → Ana entity'ler neler? (User, Product, Order...)
@@ -157,11 +180,20 @@ AI ÇIKTISI:
     → Kod: naming, SoC, no god class, no debug logs
     → Test: coverage %60+
 
-22. validate-project.ps1 çalıştır
+22. Domain-Quality-Ops/PRODUCTION-CHECKLIST.md doğrulamasını çalıştır
 
 23. Son düzeltmeler
 
-24. ✅ PROJE TAMAMLANDI
+24. Ledger Kapanışları:
+    → AI_FEATURE_LEDGER.md: Eklenen tüm feature'lar + neden/nasıl
+    → AI_ERROR_LEDGER.md: Açık hata kalmadı doğrulaması
+    → AI_DEVELOPMENT_LOG.md: Saatli final özet + sonraki adım
+
+25. CI/CD Kapısı:
+    → Lint + test + build sonucu kaydet
+    → CI kırmızıysa "tamamlandı" deme
+
+26. ✅ PROJE TAMAMLANDI
 ```
 
 ---
@@ -183,7 +215,7 @@ AI ÇIKTISI:
 HATA OLUNCA:
   1. Hata mesajını oku (stack trace dahil)
   2. QUICK-START'taki "SIK HATALAR → ÇÖZÜM" tablosuna bak
-  3. Çözüm bulunamazsa → ERROR-PATTERNS.md'ye bak
+    3. Çözüm bulunamazsa → Domain-Quality-Ops/ERROR-PATTERNS.md'ye bak
   4. Düzelt → build/test tekrar çalıştır
   5. Geçiyor mu?
      EVET → devam et
@@ -218,7 +250,7 @@ Her adımda build et + hataları düzelt.
 DİKKAT (ZORUNLU KURAL): Kodlamaya başlamadan ÖNCE projenin kök dizinindeki `AI_DEVELOPMENT_LOG.md` dosyasını oku. Eğer yoksa Yarat. 
 Her 1 saatin sonunda VEYA bir hatayı çözdükten hemen sonra O dosyaya; Saati, yapılanı ve çözülen hatayı KAYDET! Aksi halde kod yazma!
 
-Bitince PRODUCTION CHECKLIST'i çalıştır.
+Bitince Domain-Quality-Ops/PRODUCTION-CHECKLIST.md kontrolünü çalıştır.
 ```
 
 ---
@@ -238,5 +270,5 @@ Proje "tamamlandı" sayılması için:
 8. ✅ Test: coverage %60+
 9. ✅ Güvenlik: .env secrets, no hardcoded, CORS
 10. ✅ Dokümantasyon: README.md, .env.example
-11. ✅ validate-project.ps1 → %80+ başarı
+11. ✅ PRODUCTION-CHECKLIST + ledger kapanışları tamam
 ```

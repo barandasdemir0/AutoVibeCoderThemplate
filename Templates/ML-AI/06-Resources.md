@@ -1,37 +1,41 @@
-# 6️⃣ ML / AI Geliştirme - Kurumsal The Native Data Science Ekosistemleri
+# 6?? ML / AI Geliştirme - Kurumsal Native Data Science Ekosistemleri
 
-> Profesyonel, otonom bir AI sistemi bir Bilgisayarlı Görme Veya Dil Modeli Eğittiğinde Tekerleğı Sıfırdan Python Listeleriyle Baştan icat etmez (Çok Yavaştır The Saf Python). Büyük The C++ Binding'leriyle Derlenmiş Milyon Dolarlık Paketler Otonomun Zırhıdır!!
-
----
-
-## 📦 1. Kilit Taşı Endüstri Python Modülleri (ŞART Kütüphaneler)
-
-### Yapay Zeka Ve Neural Engine (Eğitim Motoru)
-* **`torch` (PyTorch)** (MÜKEMMEL TERCİH): Üniversitelerden Arge merkezlerine Kadar The Default Modüldür!. TensorFlow Karmaşasından Yırtıp Otonoma TERTEMIZ OOp Sınıf tabanlı Güç katar!. (Veya The JAX Veya KERAS (Daha basit işler İcin)). 
-* **`transformers` (HuggingFace)** (ZORUNLU EGER NLP YAPILIYORSA): Kendi NLP Dil Modelini Baştan Yazan Biri Yüzyıl Geridedir!!. Otonom AI The HuggingFace Katmanına Gider, Zirve The (BERT, GPT2 T5) Ağırlıklarını Ceker (Pre-Trained) Ve Custom Datada SADECE İnce Ayar (Fine-Tuning) Çeker!!! 
-
-### Data Kırlangıcı (Pre-Processing) Ve Analitik
-* **`pandas` ve `numpy`** (ZORUNLU): Dataların CSV Veya Matris Okunumları ve Satır The Filtrasyonu İcin. 
-* **`scikit-learn`** (ZORUNLU): Eger Yapay Sinir Ağı Kadar Agır işlenmeyecek Data Varsa (Mesala Kullanıcı Fıyatları/ Ev Fıyatı Cıkarmak) XGBoost Random Forest The ScikitLearn ile Otonomca Mükemmel Gevsek Kurulur!. Aynı Zamanda Eğitim-Test Bölicileri (`train_test_split`) Kutsaldrı.
-
-### Sunucu Ve API Katmanı
-* **`fastapi` ve `uvicorn`** (SEKTÖR LİDERİ): Model Python Tarafında Calısıyor, Tüketici IPhone. Aradaki The Mükemmel REST KÖPRÜSÜ The FastAPI Dır. Pydantic İle Girsi Cekısı Dogrular Modelin Onüne (Prediction Endpointine) Hacı Dayı Pompalar.
+> Profesyonel, otonom bir AI sistemi bilgisayarlı görü veya dil modeli eğitirken tekerleği sıfırdan icat etmez. Büyük ve derlenmiş paketler otonomun zırhıdır.
 
 ---
 
-## 📡 2. Yapay Zekaya (AI Agent'ına) İstem Formülleri
+## 1. Kilit Taşı Endüstri Python Modülleri
 
-Aşağıdaki İstem formülleri, Sistemi Dümdüz Kaggle Öğrenci Profilindan Çekip Silikon Vadisi AI Inşaat Şablonuna Tasıyan The Komutlaredir:
+### Yapay Zeka ve Neural Engine
+* **torch (PyTorch):** Üniversiteden Ar-Ge merkezine kadar güçlü bir tercihtir. TensorFlow karmaşasından uzak, nesne yönelimli yapı sağlar.
+* **transformers (HuggingFace):** NLP yapılıyorsa güçlü bir standarttır. Pre-trained modellerin üzerine ince ayar uygulanır.
 
-> "Bir Kedi/Köpek The Sınıflandırıcı Görüntü İşleme (Image Classification) Modeli Eğitim Dosyası Yaz!. **Zorunlu Kurallar:** 
-> 1. Datayı Basit Folderlardan Okurken Kodu Şiştirme THE Mükemmel Tool Olan PyTorch `ImageFolder` Ve `DataLoader` Kullanarak Batchler Halinde Cektirt. (Data Transformlarına Resize Ve Normalize i Kesin Vur, Eğitimde Flip İle Argumantasyon At!!!).
-> 2. Model Olarak Benim Icin 0'dan Custom Convolutional Ag ÇİZME!! Gidip `torchvision.models` Icerisinden (Transfer Learning Kullanarak) ResNet18 Veya MobileNet Cek, THE Son Katmanı (FC) Kedi/köpek (2 Cıktı) İcin Sadece Degıstır Kı Egitme Süresi Cihazda Saatlerce Sürmesin!!.
-> 3. Egitim Bttıgınde Mesele Kapanmasın. Dosyayın Icınde Modeli `.pth` Çıkararak `models/` Altına Koy! "
+### Veri Hazırlığı ve Analitik
+* **pandas ve numpy:** CSV ve matris işlemleri için zorunlu araçlardır.
+* **scikit-learn:** Klasik ML ve train/test split gibi işlemler için vazgeçilmezdir.
 
-> " Eğitilmiş The Bert Text-Classification (FastApi) İle Servis Et!. Application Acılışında Lifespan/Startup Olaylarıyla Modeli The Hafızaya Oturttur!, Uvicorn Ile Sunucyu 0.0.0.0 Portunda Acık The Dockerfile İçine Python Tarafını Inşa Edici Ve Requşremlent Kurucu Docker Commandlar Otonom Olarak Diz! "
+### Sunucu ve API Katmanı
+* **fastapi ve uvicorn:** Modelin servis edilmesi için güçlü bir REST köprüsüdür.
 
 ---
 
-## 🌍 Faydalı Kaynak Linkleri
-* **[PyTorch Torchvision / Audio / Text Docs]**: The Zirve Modüllerin Incelemesi!!. Image lerin Normalize (Standartlaştırılmış Range Olan [0.485, 0.456, 0.406]) Sabit Rakamları Kafadan Yazılmaz!!. Otonominin Bir Numaralı Apple-PyTorch Manifestosu.
-* **[FastAPI - ML Deployment Best Practices]**: Python ML Modelini Arkaplana Gömüp Nasil Asenkron İsekte Kitlenmeden Halledildiğini, The Pydantic Girdisinin Mlzamesnii Tasvir Eden Harika Sunucu Zırh Belgesi. Otonomi Bu Belgeden Uçuyor.
+## 2. Yapay Zekaya İstem Formülleri
+
+Örnek komut kalıpları:
+
+> "Bir kedi/köpek sınıflandırıcı görüntü işleme modeli eğitim dosyası yaz."
+
+Zorunlu kurallar:
+1. Veriyi `ImageFolder` ve `DataLoader` ile batch'ler halinde oku.
+2. `torchvision.models` içinden transfer learning ile hazır bir ağ seç, son katmanı hedef sınıfa göre değiştir.
+3. Eğitim bitince modeli `.pth` olarak `models/` altına kaydet.
+
+> "Eğitilmiş BERT text-classification modelini FastAPI ile servis et."
+
+Sunucu açılışında model lifecycle ile RAM'e alınır ve Docker komutları buna göre hazırlanır.
+
+---
+
+## 3. Faydalı Kaynak Linkleri
+* **PyTorch Torchvision / Audio / Text Docs:** Normalize sabitleri ve temel model referansları.
+* **FastAPI - ML Deployment Best Practices:** Modelin asenkron servisi ve giriş doğrulama rehberi.

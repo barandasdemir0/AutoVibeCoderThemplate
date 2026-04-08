@@ -66,7 +66,7 @@ Neden: GitHub Actions workflow yazar → Docker build test eder
 
 ```
 ADIM 1: Proje başlat
-   → init-project.ps1 çalıştır (veya AI'a yaptır)
+   → Template seç + QUICK-START.md + AUTONOMY-BRAIN.md + AI-BRAIN-ORCHESTRATOR.md okut
    
 ADIM 2: AI'a talimat ver
    → "Bu projenin QUICK-START.md dosyasını oku ve aşağıdaki fikri gerçekleştir:
@@ -74,12 +74,14 @@ ADIM 2: AI'a talimat ver
 
 ADIM 3: AI otonom çalışır
    → Dosyaları yazar → build eder → hataları düzeltir → test yazar
+   → Chat talimatlarını ledger dosyalarına otomatik kaydeder
+   → Monolith/microservice ve stack kararını gerekçesiyle decision log'a işler
 
 ADIM 4: Validate
-   → validate-project.ps1 çalıştır
+   → Domain-Quality-Ops/PRODUCTION-CHECKLIST.md + ledger kontrolü yap
    
 ADIM 5: Review
-   → AI'a "PRODUCTION-CHECKLIST.md'yi çalıştır" de
+   → AI'a "Domain-Quality-Ops/PRODUCTION-CHECKLIST.md'yi çalıştır" de
 ```
 
 ### Web Tabanlı AI (ChatGPT, Claude web)
@@ -94,6 +96,9 @@ ADIM 5: Her dosya için tekrarla (emek yoğun!)
 
 > ⚠️ Web tabanlı AI ile 50+ dosyalık proje üretmek SAATLER sürer.
 > Agentic araçla dakikalar içinde tamamlanır.
+
+Not:
+- Araç fark etmeksizin otonomluk standardı için `AI-BRAIN-ORCHESTRATOR.md` zorunlu referanstır.
 
 ---
 
@@ -115,8 +120,8 @@ Aşağıdaki kurallara uy:
 7. Console.log/print ASLA → Logger kullan
 8. God class (1000+ satır) ASLA → böl
 
-Hata olursa ERROR-PATTERNS.md'ye bak.
-Proje bitince PRODUCTION-CHECKLIST.md'yi çalıştır.
+Hata olursa Domain-Quality-Ops/ERROR-PATTERNS.md'ye bak.
+Proje bitince Domain-Quality-Ops/PRODUCTION-CHECKLIST.md'yi çalıştır.
 ```
 
 ---
@@ -127,4 +132,28 @@ Proje bitince PRODUCTION-CHECKLIST.md'yi çalıştır.
 2. **Adım adım çalış:** Tüm dosyaları tek seferde yazdırma → gruplar halinde (models → services → controllers → UI)
 3. **Build kontrol:** Her 5 dosyada bir "derle ve hataları göster" de
 4. **Checkpoint kullan:** MASTER-PROMPT'taki 6 checkpoint'i takip et
-5. **Hata olursa:** ERROR-PATTERNS.md'yi AI'a referans ver
+5. **Hata olursa:** Domain-Quality-Ops/ERROR-PATTERNS.md'yi AI'a referans ver
+
+---
+
+## 🌐 Cross-Agent Uyum (Claude/Cursor/Windsurf/Codex)
+
+- Ortak davranis standardi: `AGENT-CROSS-COMPATIBILITY.md`
+- Hazir root dosya sablonlari: `AGENT-FILES-STARTER-KIT.md`
+- Karar motoru ve hafiza protokolu: `AI-BRAIN-ORCHESTRATOR.md`
+- Branch protection ve merge governance: `GITHUB-BRANCH-PROTECTION.md`
+- Issue/PR/Release md sablonlari: `TEMPLATE-ISSUE.md`, `TEMPLATE-PR.md`, `TEMPLATE-RELEASE.md`
+- Tek komut otonom baslatma: `ONE-COMMAND-AUTONOMY-PROMPT.md`
+- Proje buyuklugu secim motoru: `PROJECT-SIZE-ENGINE.md`
+- Otomatik secim scripti (tek non-md dosya): `project-autoselect.ps1`
+- Detayli proje soru rehberi: `PROJECT-DISCOVERY-QUESTION-GUIDE.md`
+- Universal okuma ve cakisma sirasi: `UNIVERSAL-READING-ORDER.md`
+
+Hizli baslatma:
+1. Aracina uygun root dosya sablonunu al (CLAUDE.md / AGENTS.md / rules).
+2. Sablonu projeye koy ve AI-BRAIN-ORCHESTRATOR.md dosyasina bagla.
+3. Ilk gorevde ledger writeback + CI gate calistigini dogrula.
+
+PowerShell hizli kullanim:
+1. `./project-autoselect.ps1 -Idea "B2C e-ticaret sitesi" -NoPrompt -SavePlan`
+2. Cikan `SelectedSize`, `RecommendedTemplate` ve `RecommendedArchitecture` sonucuna gore ONE-COMMAND-AUTONOMY-PROMPT.md komutunu calistir.

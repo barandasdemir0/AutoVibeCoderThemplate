@@ -1,4 +1,21 @@
-# ⚡ QUICK START: The Autonomous Python-Django Master Directive (Otonom Komut Şablonu)
+## SEQUENCE-ENGINE v1 (ZORUNLU)
+Bu template ile calisirken sirayi bozmak YASAK:
+1) QUICK-START.md
+2) 01-Planning.md
+3) 02-Architecture.md
+4) 03-StepByStep.md
+5) 04-FilesStructure.md
+6) 05-DebugTips.md
+7) 06-Resources.md
+
+Kural:
+- Her dosyadan sonra 3-5 maddelik "cikarim ozeti" yaz.
+- Ozeti yazmadan sonraki dosyaya gecme.
+- 7 dosya tamamlanmadan kod uretimine baslama.
+- Bu akisin detay standardi: Templates/_Universal/TEMPLATE-SEQUENCE-ENGINE.md
+
+---
+# ⚡ QUICK START: The Autonomous Python-Django Master Directive (Otonom Komut Sablonu)
 
 > **DİKKAT:** Bu dosya VibeCoding Otonom Zeka asistanlarının bir Python Django projesi başlatırken okuması ve HARFİYEN uygulaması gereken ana master prompt komutlarını içerir. Otonomi bu kilit dosyadaki ZORUNLU MÜHÜRLERİ okumadan mimariyi inşaa edemez!
 > 
@@ -6,7 +23,7 @@
 
 ---
 
-## 🛑 OTONOM ZEKANIN 5 ALTIN KURALI VEYA "ÇELİK MÜHÜRLERİ"
+## OTONOM ZEKANIN 5 ALTIN KURALI VEYA "ÇELİK MÜHÜRLERİ"
 
 Bir otonom ajan, kullanıcıdan (Müşteri/Sizden) "Bana Python Django API (Backend) yaz" komutunu aldığı anda aşağıdaki sarsılmaz mimari kararları otomatikman devreye sokmak ZORUNDADIR.
 
@@ -16,7 +33,7 @@ Tüm geri dönüşler (Responses) Kesinlikle Katı JSON Formatında DRF mimarisi
 
 ### 2. DTO (Serializer) Kalkanı ve Fat Model Prensibi
 Controller (View) Katmanında Müşteriden (Payload) aldığı istek parametrelerini View içerisinde Spagetti tarzı if/else veya Model Save mantığıyla KİRLETEMEZSİN!
-Otonomi Kesin Olarak bir `serializers.py` dosyası yaratır ve veriyi ModelSerializer içinden DOĞRULAYARAK geçer. Ayrıca hesaplamalar (İndirim hesaplama vb) View'da değil, Doğrudan Class (Model) içinde bir fonksiyon olarak MÜHÜRLENİR!
+Otonomi Kesin Olarak bir `serializers.py` dosyası yaratır ve veriyi ModelSerializer içinden DOGRULAYARAK geçer. Ayrıca hesaplamalar (İndirim hesaplama vb) View'da değil, Doğrudan Class (Model) içinde bir fonksiyon olarak MÜHÜRLENİR!
 
 ### 3. N+1 Sorununa Karşı Katı "select_related" Alarmı
 Otonomi, REST Endpointlerini yazdığı `views.py` dosyasında Asla Veritabanı Belleğini YORAMAZ!
@@ -30,7 +47,7 @@ Kurumsal API dünyasında CSRF Token Çerez (Cookie) Zafiyetidir. Güvenlik `dja
 
 ---
 
-## 🚀 THE MİMARİ OTONOM BAŞLATMA KOMUTLARI (TERMINAL ZİNCİRİ)
+## THE MİMARİ OTONOM BAGLATMA KOMUTLARI (TERMINAL ZİNCİRİ)
 
 AI'ın asistan olarak projeyi başlatırken kullanacağı terminal yürütme bandı!
 Sanal Makine Kurulmadan Root İçine Pip Install YASAKTIR!
@@ -57,3 +74,4 @@ python manage.py migrate
 
 **Mimar! Bu belgedeki kurallar, "İyi bir fikir" değil; Enterprise Uygulama Otonomisinin KIRILAMAZ ANAYASASIDIR!**
 Sistemi inşa etmeye başlayabilirsin! Başarılar!
+

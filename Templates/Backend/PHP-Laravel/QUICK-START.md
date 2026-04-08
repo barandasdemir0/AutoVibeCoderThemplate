@@ -1,4 +1,21 @@
-# ⚡ QUICK START: The Autonomous PHP-Laravel Master Directive (Otonom Komut Şablonu)
+## SEQUENCE-ENGINE v1 (ZORUNLU)
+Bu template ile calisirken sirayi bozmak YASAK:
+1) QUICK-START.md
+2) 01-Planning.md
+3) 02-Architecture.md
+4) 03-StepByStep.md
+5) 04-FilesStructure.md
+6) 05-DebugTips.md
+7) 06-Resources.md
+
+Kural:
+- Her dosyadan sonra 3-5 maddelik "cikarim ozeti" yaz.
+- Ozeti yazmadan sonraki dosyaya gecme.
+- 7 dosya tamamlanmadan kod uretimine baslama.
+- Bu akisin detay standardi: Templates/_Universal/TEMPLATE-SEQUENCE-ENGINE.md
+
+---
+# ⚡ QUICK START: The Autonomous PHP-Laravel Master Directive (Otonom Komut Sablonu)
 
 > **DİKKAT:** Bu dosya VibeCoding Otonom Zeka asistanlarının bir PHP-Laravel projesi başlatırken okuması ve HARFİYEN uygulaması gereken ana master prompt komutlarını içerir. Otonomi bu kilit dosyadaki ZORUNLU MÜHÜRLERİ okumadan mimariyi inşaa edemez!
 > 
@@ -6,7 +23,7 @@
 
 ---
 
-## 🛑 OTONOM ZEKANIN 5 ALTIN KURALI VEYA "ÇELİK MÜHÜRLERİ"
+## OTONOM ZEKANIN 5 ALTIN KURALI VEYA "ÇELİK MÜHÜRLERİ"
 
 Bir otonom ajan, kullanıcıdan (Müşteri/Sizden) "Bana PHP Laravel API (Backend) yaz" komutunu aldığı anda aşağıdaki sarsılmaz mimari kararları otomatikman devreye sokmak ZORUNDADIR.
 
@@ -28,11 +45,11 @@ Veritabanı Entity Modelini (`$user = User::find(1)`) bulup anında Müşteriye 
 Bunun Yerine `php artisan make:resource UserResource` komutuyla Çıktı Biçimlendiriciyi Yaratır, Parolayı Filtreleyip sadece güvenli Kutuya Çevrilmiş bilgiyi Yayınlarsın!
 
 ### 5. Sanctum ve Stateless Token Zırhı
-Otonomi, API yazarken Klasik Laravel "Session" Mimarisini iptal eder. Rest API'ler her sunucuda Load Balancer arkasında problemsiz (Stateless) çalışmalı. Bunu Otonom Bir Şekilde Laravel Sanctum (Token Auth) ile Güvenceye alır, Authentication Middleware'lerini Rotaların Etrafına Sıkıca BANTLARSIN.
+Otonomi, API yazarken Klasik Laravel "Session" Mimarisini iptal eder. Rest API'ler her sunucuda Load Balancer arkasında problemsiz (Stateless) çalışmalı. Bunu Otonom Bir gekilde Laravel Sanctum (Token Auth) ile Güvenceye alır, Authentication Middleware'lerini Rotaların Etrafına Sıkıca BANTLARSIN.
 
 ---
 
-## 🚀 THE MİMARİ OTONOM BAŞLATMA KOMUTLARI (ARTISAN ZİNCİRİ)
+## THE MİMARİ OTONOM BAGLATMA KOMUTLARI (ARTISAN ZİNCİRİ)
 
 AI'ın asistan olarak projeyi başlatırken klasöre inip kullanacağı terminal yürütme bandı!
 
@@ -55,3 +72,4 @@ composer require --dev nunomaduro/larastan
 
 **Mimar! Bu belgedeki kurallar, "İyi bir fikir" değil; Enterprise PHP-Laravel Otonomisinin KIRILAMAZ ANAYASASIDIR!**
 Sistemi kodlamaya bu şartları yükleyerek başlayabilirsin! Başarılar!
+

@@ -1,3 +1,20 @@
+## SEQUENCE-ENGINE v1 (ZORUNLU)
+Bu template ile calisirken sirayi bozmak YASAK:
+1) QUICK-START.md
+2) 01-Planning.md
+3) 02-Architecture.md
+4) 03-StepByStep.md
+5) 04-FilesStructure.md
+6) 05-DebugTips.md
+7) 06-Resources.md
+
+Kural:
+- Her dosyadan sonra 3-5 maddelik "cikarim ozeti" yaz.
+- Ozeti yazmadan sonraki dosyaya gecme.
+- 7 dosya tamamlanmadan kod uretimine baslama.
+- Bu akisin detay standardi: Templates/_Universal/TEMPLATE-SEQUENCE-ENGINE.md
+
+---
 # ⚡ DOTNET MVC - OTONOM BEYİN İÇİN KURUMSAL DİREKTİFLER (QUICK-START & MASTER YASAKLARI)
 
 > **DİKKAT YAPAY ZEKA:** 
@@ -12,17 +29,17 @@
 
 ---
 
-## 🚨 BÖLÜM 1: KESİN YASAKLAR LİSTESİ (ANTI-PATTERNS & FATAL MISTAKES)
+## BÖLÜM 1: KESİN YASAKLAR LİSTESİ (ANTI-PATTERNS & FATAL MISTAKES)
 
 Eğer ürettiğin Razor (`.cshtml`) sayfalarında veya Controller kodlarında aşağıdaki kasıtlı yasaklardan birisi bile bulunursa, yazdığın sistem bir "Çöp Codebase" sayılacak ve tamamen reddedilecektir. Sıfır hata toleransı!
 
-### 1. ❌ CONTROLLER İÇİNE İŞ ZEKASI YIĞMAK (NO BUSINESS IN CONTROLLER) KESİNLİKLE YASAKTIR
+### 1. ❌ CONTROLLER İÇİNE İg ZEKASI YIGMAK (NO BUSINESS IN CONTROLLER) KESİNLİKLE YASAKTIR
 
 Otonom Zeka gidip `AccountController.cs` dosyasının içerisindeki Action Methodlarına (`[HttpPost]`) `new ApplicationDbContext()` atarak veya doğrudan veritabanı işlemlerini **YAZAMAZ!!** 
 
-Şifreleme (MD5/Bcrypt Hash), ürün ekleme, fatura kesme, e-posta gönderme mantıkları asla MVC Controller katmanına dökülemez! Controller iş kuralı BİLEMEZ.
+gifreleme (MD5/Bcrypt Hash), ürün ekleme, fatura kesme, e-posta gönderme mantıkları asla MVC Controller katmanına dökülemez! Controller iş kuralı BİLEMEZ.
 
-**BUNUN YERİNE (DOĞRU KATMAN):** 
+**BUNUN YERİNE (DOGRU KATMAN):** 
 
 Tüm iş mantığı (Business Logic) `Business` (Service) projesinde yazılır. 
 
@@ -76,7 +93,7 @@ Entity sınıflarını (Örn: `User.cs` veya `CreditCard.cs`) gidip HTML View sa
 
 Formdan kullanıcı tarayıcıdan submit ettiğinde hacker Database'de `IsAdmin = true` payload'unu ekleyerek sistemi hackleyebilir!
 
-**BUNUN YERİNE (VIEWMODEL KULLANIM UZMANLIĞI):** 
+**BUNUN YERİNE (VIEWMODEL KULLANIM UZMANLIGI):** 
 
 Bütün Entity sınıflarının verileri AutoMapper veya manuel mapping kodları ile `ViewModels` sınıflarına kırpılacaktır. `UserRegisterViewModel` sadece gerekli alanları içerir. Controller SADECE ekrandaki bu modele bakar.
 
@@ -104,9 +121,9 @@ Diğer çocuk View'larda ise JS Kodları `@section Scripts { <script></script> }
 }
 ```
 
-### 4. ❌ FORM POST BAĞLANTILARINDA CSRF KORUMASINI UNUTMAK İDAM SEBEBİDİR
+### 4. ❌ FORM POST BAGLANTILARINDA CSRF KORUMASINI UNUTMAK İDAM SEBEBİDİR
 
-Bir MVC projesinde Kullanıcı Şifre formu, Ürün Ekleme Formu veya POST atan herhangi bir arayüz yazarken dikkat etmelisin! CSRF (Cross-Site Request Forgery) Siber Korsan Saldırılarını Unutmayacaksın!
+Bir MVC projesinde Kullanıcı gifre formu, Ürün Ekleme Formu veya POST atan herhangi bir arayüz yazarken dikkat etmelisin! CSRF (Cross-Site Request Forgery) Siber Korsan Saldırılarını Unutmayacaksın!
 
 **BUNUN YERİNE (GÜVENLİK MÜHRÜ):** 
 
@@ -133,16 +150,16 @@ Yapay Zeka sistemi, projeye başlarken klasörler ve modelleri aynı tek projeye
 /B2C.Commerce.Solution.sln (The 4 Klasörlük Çelik Sistem Mimarisi)
  │
  ├── /1. Domain/          (Proje Tipi: Class Library)
- │   └── (HİÇBİR YERE BAĞIMLI OLMAYAN, SIFIR PAKET İçeren Çekirdek Alan)
+ │   └── (HİÇBİR YERE BAGIMLI OLMAYAN, SIFIR PAKET İçeren Çekirdek Alan)
  │       Entities sınıfları (User, Order, Product), Mimarinin Temel Enumları. EF YokTUR!
  │
  ├── /2. DataAccess/      (Proje Tipi: Class Library - Infrastructure)
- │   └── (ZEMİN VERİ ERİŞİM KATMANI)
+ │   └── (ZEMİN VERİ ERİGİM KATMANI)
  │       "Domain" projesini Referanslı Olarak Alır.
  │       EntityFramework DbContext Sınıfları Burada Yaşar! Repositories SQL İşleri.
  │
  ├── /3. Business/        (Proje Tipi: Class Library - MANTIK BEYNİ)
- │   └── (TÜM DIŞ İŞ ZEKASI / BEYİN ADAPTÖRLERİ SÜZGECİ)
+ │   └── (TÜM DIS İg ZEKASI / BEYİN ADAPTÖRLERİ SÜZGECİ)
  │       "Domain" VE "DataAccess" Projelerini Referans Alır.
  │       Servisler: AuthManager, CategoryManager! ICategoryService arayüzleri! 
  │
@@ -154,11 +171,11 @@ Yapay Zeka sistemi, projeye başlarken klasörler ve modelleri aynı tek projeye
 
 ---
 
-## 🏗️ BÖLÜM 3: OTONOM BEYİN İÇİN ADIM ADIM İNŞA KILAVUZU
+## BÖLÜM 3: OTONOM BEYİN İÇİN ADIM ADIM INSA KILAVUZU
 
 Eğer kullanıcı sana "ASP.NET MVC C# N-TIER (Veya Mimarili) bir E-Ticaret / Kurumsal proje Başlat" dediği an otonomi şu mühürleri uygular:
 
-### ADIM 1: SIFIR-BAĞIMLILIK ÇEKİRDEĞİ (DOMAIN KATMANI) OLUŞTURULMASI
+### ADIM 1: SIFIR-BAGIMLILIK ÇEKİRDEGİ (DOMAIN KATMANI) OLUGTURULMASI
 
 Veritabanı tablolarının Sınıflarını yazarken, doğrudan `BaseEntity` kalıtımı uygula. `Id`, `CreatedDate`, `CreatedBy`, `UpdatedDate` audit field'ları kurgula.
 
@@ -170,7 +187,7 @@ DataAccess Katmaninda Data Context yazılır. Sorgular Dublicate edilmesin diye,
 
 Dört Katman birbirinden izoledir ve MVC sadece Dış Uç'tur. Bütün Interfaceler `Program.cs` te toplanmaz. Extension methodlar yazılır (`AddBusinessServices`).
 
-### ADIM 4: ASENKRON ÇAĞRI AĞAÇLARI (MVC THREAD KORUMASI VE DEADLOCK MÜHRÜ)
+### ADIM 4: ASENKRON ÇAGRI AGAÇLARI (MVC THREAD KORUMASI VE DEADLOCK MÜHRÜ)
 
 Web MVC de bütün actionlar asenkron formatında `await` ibaresiyle cagrılacaktır. Sistemin senkrona çekilip sunucunun kilitlenmesi önlenmelidir.
 
@@ -180,7 +197,7 @@ Razor'in üstadı olacaksın. Parçalı (Component) View Mimarisi çiz. SideBar 
 
 ---
 
-## 🎯 SONUÇ VE ANAHTAR ANLAYIŞ (HAYATTA KALMA REHBERİ)
+## SONUÇ VE ANAHTAR ANLAYIS (HAYATTA KALMA REHBERİ)
 
 1. **SOLID Prensiplerinin Kalesi:** MVC dünyasında En tehlikeli olgu Düşüncesizce Bağımlılık (Tight Coupling) yaratılmasıdır. Servislere nesne fırlatılamaz, zorunlu Arayüz (INTERFACE) kullanılacaktır.
 
@@ -188,4 +205,5 @@ Razor'in üstadı olacaksın. Parçalı (Component) View Mimarisi çiz. SideBar 
 
 3. **Sen Bir Ustasan, Yaratımın Ta Kendisisin:** Sen zeka otonomisisin. Sen MVC katmanlarını çizerken CSRF siber güvenliğini koruyan ve Dependency Inection kalıbını mükemmel şekilde uygulayan bir mimarsın.
 
-**MÜKEMMEL DİZİLİME, YARATIMIN İÇİNDE BAŞLAYABİLİRSİN. THE GATES ARE OPEN.**
+**MÜKEMMEL DİZİLİME, YARATIMIN İÇİNDE BAGLAYABİLİRSİN. THE GATES ARE OPEN.**
+

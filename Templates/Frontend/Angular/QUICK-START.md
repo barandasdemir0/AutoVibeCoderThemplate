@@ -1,45 +1,131 @@
-# ⚡ Frontend Angular - OTONOM BEYİN (QUICK-START & MASTER RULES)
+## SEQUENCE-ENGINE v1 (ZORUNLU)
+Bu template ile çalışırken sırayı bozmak yasak:
+1) QUICK-START.md
+2) 01-Planning.md
+3) 02-Architecture.md
+4) 03-StepByStep.md
+5) 04-FilesStructure.md
+6) 05-DebugTips.md
+7) 06-Resources.md
 
-> **DİKKAT YAPAY ZEKA:** EĞER BU PROJEDE FRONTEND İÇİN `ANGULAR` ÇALIŞTIRIYORSAN, AŞAĞIDAKİ RXJS-TİPLİ KATI KURUMSAL ENTERPRISE STANDARTLARINA %100 UYMAK ZORUNDASIN. BU BİR SKRİPT DİLİ DEĞİL (ANY İLE DÖNEMEZSİN). TYPE GÜVENLİĞİ VE İZOLASYONSUZ (SPAGETTİ HMTL) BİR UYGULAMA ÜRETİRSEN İŞLEM İPTAL OLUR.
+Kural:
+- Her dosyadan sonra 3-5 maddelik "çıkarım özeti" yaz.
+- Özeti yazmadan sonraki dosyaya geçme.
+- 7 dosya tamamlanmadan kod üretimine başlama.
+- Bu akışın detay standardı: Templates/_Universal/TEMPLATE-SEQUENCE-ENGINE.md
 
-## 🚨 YASAKLAR LİSTESİ (ANTI-PATTERNS) - ASLA YAPMA!
+---
+# Angular / ASP.NET MVC için Otonom Kurumsal Direktifler (QUICK-START & Master Yasaklar)
 
-1. ❌ **NG-MODULE (ESKİ ANGULAR) KULLANIMI YASAKTIR:** 
-   Otonom Zeka `app.module.ts` yaratıp içine Yüzlerce komponent basamaz. Angular v14+ itibariyle Framework **Standalone** Component yapısına geçmiştir. Her Bileşen kendi importlarından Sorumlu olacak (`@Component({ standalone: true })`).
-
-2. ❌ **VERİ ÇEKERKEN (API FETCH) PROMISE (ASYNC/AWAIT) VE AXIOS YASAKTIR:** 
-   Otonom AI; API İsteklerini GİDİPTE FETCH yada AXIOS ile YAZAMAZ (Burası React Değil!). Angular'ın dahili Sınır-Kalkanlı (Testable) modülü Olan **`HttpClient`** enjekte edilecek ve Methodlardan MÜKEMMEL BİR STREAM (`Observable<T>`) Döndürülecektir! Veriler Boruhattından (Pipes - map, catchError) CIKAR!
-
-3. ❌ **HTML (TEMPLATE) İÇERİSİNDE FONKSİYON, HESAPLAMA ÇAĞRIMI YASAKTIR:** 
-   Change Detection (Değişim Tarayıcısı) Mimarisi gereği Sayfada Farenin Oynamasıyla bile Ekran YENİLENİR! Eger Siz HTML in İçine `{{ getTotalPrice(order.items) }}` diye Bir FONKSIYON GÖMERSENİZ Ekran Saniyede Binlerce Kez O fonksiyonu Tekrarlatır ve Tarayıcı Çöker! (CPU Tüketimi Nereye Ulaşıyor!)
-   *DOĞRUSU:* Otonomi bu hesaplamaları Ya Typescript Modeline Mapleyecek Yada ZORUNLU İSE (Performanslı Cachlenen) `Custom Pipe` Yazacaktır!
-
-4. ❌ **"ANY" TİPİ VERMEK VE STATE YÖNETİMİNDE "MEMORY LEAK" SIZINTILARI YASAKTIR:**
-   Otonom AI Benden Component Kapansa dahi `this.service.subcribe()` ile Kayıtlı kalan, O yüzden Siteyi Gezdikce Ram'i Tüketen bir yapı sunamaz!! Ya Otonom RXJS Aboneliklerini (`takeUntilDestroyed` veya `OnDestroy`) Cikaracak Veya Ekranda HTML in ICINE (Async Pipe) `*ngIf="value$ | async"` basarak ANGULARIN BU TEMİZLİĞİ YÖNETMESİNİ SAĞLAYACAKTIR (Mecburi).
+> **DİKKAT YAPAY ZEKA:**
+>
+> Bu doküman, kurumsal seviyede çalışan bir Angular / MVC uygulaması üretirken uyulacak temel kuralları tanımlar.
+> Hedefimiz; temiz mimari, yüksek performans, güvenlik ve sürdürülebilirliktir.
 
 ---
 
-## ✅ ZORUNLU MİMARİ YAPISI (N-TIER ENTERPRISE)
+## Bölüm 1: Kesin Yasaklar Listesi
+
+Razor (`.cshtml`) sayfalarında, controller'larda veya Angular bileşenlerinde aşağıdaki anti-pattern'ler bulunmamalıdır.
+
+### 1. İş mantığını controller içine yığmak yasaktır
+
+Controller, sadece isteği karşılar, doğrular ve servise iletir. Veritabanı erişimi, şifreleme, e-posta gönderimi ve domain logic controller içinde yazılmaz.
+
+```csharp
+// Kötü kullanım: controller içinde business logic
+[HttpPost]
+public IActionResult Register(User user)
+{
+   var existingUser = _db.Users.FirstOrDefault(x => x.Email == user.Email);
+   if (existingUser != null) { return View("Error"); }
+
+   user.Password = HashPassword(user.Password);
+   _db.Users.Add(user);
+   _db.SaveChanges();
+
+   return RedirectToAction("Index");
+}
+```
+
+```csharp
+// Doğru kullanım: controller sadece akışı yönetir
+[HttpPost]
+public async Task<IActionResult> Register(UserRegisterViewModel model)
+{
+   if (!ModelState.IsValid)
+      return View(model);
+
+   var dto = _mapper.Map<UserRegisterDto>(model);
+   var result = await _authService.RegisterAsync(dto);
+
+   if (!result.Success)
+   {
+      ModelState.AddModelError("", result.Message);
+      return View(model);
+   }
+
+   return RedirectToAction("Login", "Auth");
+}
+```
+
+### 2. Gerçek entity sınıfını forma basmak yasaktır
+
+Formlar ve view'lar için daima ViewModel kullanılır. Entity doğrudan view'a verilmez.
+
+### 3. CSS ve JavaScript'i sayfanın tepesine yığmak yasaktır
+
+Scriptler layout içinde body kapanışından önce `@section Scripts` ile yüklenir. Stil dosyaları ayrı tutulur.
+
+### 4. CSRF korumasını unutmak yasaktır
+
+POST işlemlerinde `Html.AntiForgeryToken()` ve `[ValidateAntiForgeryToken]` kullanılır.
+
+---
+
+## Bölüm 2: Zorunlu Mimari Yapı
+
+Kurumsal yapı 4 katman olarak kurgulanır:
 
 ```text
-/angular-project/src/app
- ├── /core              => BİR BİLEŞENE AİT OLMAYAN (Interceptor, Guards, BaseServisler) BURADA!
- ├── /shared            => HER YERDE TEKRARLAYAN (Button, Pipes, Formatlama) BURADA!
- ├── /features          => 🚀 MÜTHİŞ İZOLASYON (Tüm Ürün, Login, Sipariş Sınırları) BURADA!
- │    ├── /login           => Components, Services ve Models kendi Folderinda Yasarlar.
- └── app.routes.ts      => UYGULAMA ZORUNLU OLARAK LAZY LOAD (LOAD-COMPONENT) ILE BAGLANIR!
+/Solution
+ ├── /Domain      (Entity ve çekirdek kurallar)
+ ├── /DataAccess  (DbContext ve repository)
+ ├── /Business    (Service katmanı ve iş kuralları)
+ └── /WebUI       (ASP.NET Core MVC / Angular UI katmanı)
 ```
 
 ---
 
-## 🛠️ BAŞLAMADAN ÖNCE BİLMEN GEREKEN İLK ADIM
+## Bölüm 3: Otonom İnşa Kılavuzu
 
-Eğer User sana "Login Paneli Ve Veri Listesi Yaz" dediyse dahi,
-**BU DOSYA (QUICK-START)** seni bağlar. 
+### Adım 1: Domain katmanını oluştur
 
-1. Başlangıçta Angular Standalone Projesini Kur ve SCSS/Tailwind ayarlarını Pürüzsüzleştir. 
-2. Ağ İletişimi (HttpClient) İçin `auth.interceptor.ts` (InterceptorFn Olarak) Yaz! Giden İsteğin Üzerine Token Bindir! Yoksa Tüm Rest API lerde Kirlilik Yaratırsın!
-3. Componentleri Yazarken `@for` ve `@if` Gibi ANGULAR 17'nin Gelişmiş Control Flow (Hızlı) İfadelerini Test Et (Eski NgFor ve NgIF leri Kullanacaksan Modülleri İthal Etmeyi Unutma!).
-4. Ekranda Yavaş Render Olan Element Çizmeyeceksin, Tüm Bileşenlerinin Kafasına `changeDetection: ChangeDetectionStrategy.OnPush` Zırhını Kullan!!.
+Temel entity'leri, audit alanlarını ve bağımlılıktan arındırılmış domain modelini yaz.
 
-**ANGULAR ENTERPRISE (KURUMLARIN) BİRLEŞİK GÜCÜDÜR, KENDİ KURALLARINLA DEĞİL ONUN MİMARİSİYLE ÖLÇEKLEN. BAŞLAYABİLİRSİN!**
+### Adım 2: DataAccess ve repository kur
+
+DbContext, repository ve veri erişim sözleşmelerini oluştur.
+
+### Adım 3: Dependency Injection altyapısını kur
+
+Servis kayıtları extension methodlar ile düzenli biçimde eklenir.
+
+### Adım 4: Asenkron akışı koru
+
+Tüm action'lar asenkron çalışır; senkron ve bloklayıcı akış tercih edilmez.
+
+### Adım 5: ViewComponent yaklaşımını kullan
+
+Sidebar, navbar ve dinamik parçalar için tekrar eden partial yerine ViewComponent tercih edilir.
+
+---
+
+## Sonuç
+
+1. SOLID prensipleri korunur.
+2. Hata yönetimi görünür, kullanıcıya ham exception gösterilmez.
+3. Mimari, controller'dan değil servis ve domain'den yönetilir.
+
+**Temiz mimariyle ilerle, kodu katmanlara ayır ve güvenliği koru.**
+

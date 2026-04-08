@@ -1,17 +1,34 @@
+## SEQUENCE-ENGINE v1 (ZORUNLU)
+Bu template ile calisirken sirayi bozmak YASAK:
+1) QUICK-START.md
+2) 01-Planning.md
+3) 02-Architecture.md
+4) 03-StepByStep.md
+5) 04-FilesStructure.md
+6) 05-DebugTips.md
+7) 06-Resources.md
+
+Kural:
+- Her dosyadan sonra 3-5 maddelik "cikarim ozeti" yaz.
+- Ozeti yazmadan sonraki dosyaya gecme.
+- 7 dosya tamamlanmadan kod uretimine baslama.
+- Bu akisin detay standardi: Templates/_Universal/TEMPLATE-SEQUENCE-ENGINE.md
+
+---
 # ⚡ QUICK-START — Kotlin Android (MVVM + Clean + Compose)
 
 > AI'a sadece BU dosyayı + proje fikrini ver. Gerisini otonom yapacak.
 
 ---
 
-## 🤖 AI TALİMATI
+## AI TALİMATI
 
 Sen bir otonom AI geliştiricisisin. Kullanıcı sana bir proje fikri verecek. 
 Hiçbir şey sormadan, aşağıdaki kurallara göre A'dan Z'ye projeyi tamamla.
 
 ---
 
-## 📋 TECH STACK (SABİT)
+## TECH STACK (SABİT)
 - **Dil:** Kotlin
 - **UI:** Jetpack Compose
 - **Mimari:** MVVM + Clean Architecture
@@ -25,7 +42,7 @@ Hiçbir şey sormadan, aşağıdaki kurallara göre A'dan Z'ye projeyi tamamla.
 
 ---
 
-## 📐 MİMARİ (ZORUNLU)
+## MİMARİ (ZORUNLU)
 ```
 app/src/main/java/com/example/{{project_name}}/
 ├── di/                    → Hilt modules
@@ -63,7 +80,7 @@ app/src/main/java/com/example/{{project_name}}/
 
 ---
 
-## 🔧 DOSYA ÜRETME SIRASI
+## DOSYA ÜRETME SIRASI
 ```
 1. build.gradle (app + project) → dependency'ler + Hilt plugin
 2. AndroidManifest.xml → permissions (INTERNET, CAMERA vs.)
@@ -115,7 +132,7 @@ app/src/main/java/com/example/{{project_name}}/
 
 ---
 
-## 🔐 AUTH AKIŞI
+## AUTH AKISI
 ```
 1. SplashScreen → SharedPreferences token kontrol
 2. Token var → HomeScreen
@@ -129,7 +146,7 @@ app/src/main/java/com/example/{{project_name}}/
 
 ---
 
-## 🎨 UI STANDARTLARI
+## UI STANDARTLARI
 ```
 - Material 3 (M3) tema
 - Dynamic Color (Android 12+)
@@ -146,7 +163,7 @@ app/src/main/java/com/example/{{project_name}}/
 
 ---
 
-## 🐛 SIK HATALAR → ÇÖZÜM
+## SIK HATALAR → ÇÖZÜM
 | Hata | Çözüm |
 |------|-------|
 | `Hilt: MissingBinding` | @Provides veya @Binds eksik → Module kontrol |
@@ -160,7 +177,7 @@ app/src/main/java/com/example/{{project_name}}/
 
 ---
 
-## 🏁 BİTİRME CHECKLIST
+## BİTİRME CHECKLIST
 ```
 - [ ] Proje build + run başarılı
 - [ ] Auth (login + register + logout) çalışıyor
@@ -175,3 +192,4 @@ app/src/main/java/com/example/{{project_name}}/
 - [ ] .gitignore var
 - [ ] README.md var
 ```
+

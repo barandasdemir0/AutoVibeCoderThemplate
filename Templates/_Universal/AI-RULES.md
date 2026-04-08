@@ -11,19 +11,27 @@
 ### 1. Önce OKU, Sonra YAZ
 ```
 SIRA:
-1. README.md oku → Projenin ne olduğunu anla
-2. 01-Planning.md oku → Tech stack, MVP, hedefler
-3. 02-Architecture.md oku → Mimari, klasör yapısı, deseni
-4. 04-FilesStructure.md oku → Hangi dosya ne iş yapıyor
-5. 05-DebugTips.md oku → Bilinen hatalar ve çözümler
-6. 03-StepByStep.md oku → Hangi aşamadayız
-7. SONRA kod yaz
+1. _Universal/UNIVERSAL-READING-ORDER.md oku → Cakisma ve okuma sırası tek kaynaktan belirlenir
+2. _Universal/PROJECT-DISCOVERY-QUESTION-GUIDE.md oku → Kullaniciya sorulacak en detayli kesif sorulari
+3. _Universal/CONTEXT-MEMORY-RAG-POLICY.md oku → Secmeli baglam, ozetleme ve hafiza disiplini
+4. Sonra UNIVERSAL-READING-ORDER.md sirasina gore ilgili dosyalari oku
+5. SONRA kod yaz
 ```
+
+### 1.1 Zorunlu Hafıza Dosyaları
+- Proje kökünde şu dosyalar yoksa oluştur:
+  - `AI_DEVELOPMENT_LOG.md`
+  - `AI_ERROR_LEDGER.md`
+  - `AI_FEATURE_LEDGER.md`
+  - `AI_CHAT_LEDGER.md`
+  - `AI_DECISION_LOG.md`
+- Kod yazmadan önce bu dosyaların son kayıtlarını oku.
 
 ### 2. Her Dosya Değişikliğinde
 - Dosyanın **ne iş yaptığını** README veya dosya başındaki yorumda güncelle
 - **Bağımlılıklarını** belirt (hangi dosyaları import ediyor, kimin import ediyor)
 - **Debug Günlüğüne** yaz: tarih, dosya, değişiklik, neden
+- `AI_FEATURE_LEDGER.md` içine "neden bu dosya eklendi/değişti" notu düş
 
 ### 3. Hata Ayıklama Algoritması
 ```
@@ -33,8 +41,18 @@ HATA BULUNDU →
   3. İlgili dosyayı aç, hatanın olduğu satırı bul
   4. Bağımlı dosyaları kontrol et (import chain)
   5. Çöz → 05-DebugTips.md'ye KAYDET (tarih + hata + çözüm)
+  6. AI_ERROR_LEDGER.md'ye KAYDET (saat + kök neden + çözüm + doğrulama)
   6. Test et → Çalışıyor mu?
 ```
+
+### 3.1 Kullanıcı Talimat Günlüğü (Chat Ledger)
+- Kullanıcıdan gelen her net yönlendirmeyi `AI_CHAT_LEDGER.md` içine yaz:
+  - Saat
+  - Talimat özeti
+  - Tip (feature, fix, refactor, infra)
+  - Durum (pending/in-progress/completed)
+- Kural: Belirsiz "evet/yes" yerine kullanıcının gerçek isteğini cümle olarak kaydet.
+- Kural: Her yeni talimatta önce `AI_CHAT_LEDGER.md` içinde benzer kayıt ara; varsa tekrarlı soru sorma, mevcut karara göre ilerle.
 
 ---
 
@@ -113,15 +131,29 @@ HATA BULUNDU →
 ```
 1. Planning     → Ne yapılacak? (01-Planning.md güncelle)
 2. Design       → Nasıl yapılacak? (02-Architecture.md güncelle)
-3. Model/Schema → DB tablosu / data model
-4. Repository   → DB erişim katmanı
-5. Service      → İş mantığı
-6. Controller   → HTTP endpoint / UI handler
-7. Frontend     → UI component
-8. Test         → Unit + Integration
-9. Debug        → Hata varsa 05-DebugTips.md'ye yaz
-10. Log         → LOGGING.md'ye göre log ekle
+3. Basit Dilim  → Önce minimum çalışan sürüm (V1)
+4. Model/Schema → DB tablosu / data model
+5. Repository   → DB erişim katmanı
+6. Service      → İş mantığı
+7. Controller   → HTTP endpoint / UI handler
+8. Frontend     → UI component
+9. Test         → Unit + Integration
+10. Debug       → Hata varsa 05-DebugTips.md + AI_ERROR_LEDGER.md
+11. Log         → Domain-Quality-Ops/LOGGING.md + AI_FEATURE_LEDGER.md + AI_DEVELOPMENT_LOG.md
 ```
+
+### 4. CI/CD ve Git Disiplini (Tamamlanma Şartı)
+- Her değişiklik anlamlı commit bloklarına ayrılır (`feat:`, `fix:`, `docs:`).
+- AI doğrudan `main` veya `develop` branch'ine commit atmaz; sadece `feature/*` veya `fix/*` branch'lerinde çalışır.
+- Minimum CI kontrolü geçmeden feature tamamlandı denmez:
+  - Lint
+  - Unit test
+  - Build
+- CI kırmızıysa merge YASAKTIR.
+- PR'siz doğrudan merge YASAKTIR.
+- Release sürecinde semantic versioning (`vX.Y.Z`) ve `CHANGELOG.md` güncellemesi zorunludur.
+- `Domain-Quality-Ops/DEPLOY-CICD.md` akışı referans alınır; staging doğrulaması olmadan production önerilmez.
+- Ayrıntılı zorunlu akış için `AI-EXECUTION-POLICY.md` referans alınır.
 
 ---
 

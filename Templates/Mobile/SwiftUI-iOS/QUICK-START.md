@@ -1,17 +1,34 @@
+## SEQUENCE-ENGINE v1 (ZORUNLU)
+Bu template ile calisirken sirayi bozmak YASAK:
+1) QUICK-START.md
+2) 01-Planning.md
+3) 02-Architecture.md
+4) 03-StepByStep.md
+5) 04-FilesStructure.md
+6) 05-DebugTips.md
+7) 06-Resources.md
+
+Kural:
+- Her dosyadan sonra 3-5 maddelik "cikarim ozeti" yaz.
+- Ozeti yazmadan sonraki dosyaya gecme.
+- 7 dosya tamamlanmadan kod uretimine baslama.
+- Bu akisin detay standardi: Templates/_Universal/TEMPLATE-SEQUENCE-ENGINE.md
+
+---
 # ⚡ QUICK-START — SwiftUI iOS (MVVM)
 
 > AI'a sadece BU dosyayı + proje fikrini ver. Gerisini otonom yapacak.
 
 ---
 
-## 🤖 AI TALİMATI
+## AI TALİMATI
 
 Sen bir otonom AI geliştiricisisin. Kullanıcı sana bir proje fikri verecek. 
 Hiçbir şey sormadan, aşağıdaki kurallara göre A'dan Z'ye projeyi tamamla.
 
 ---
 
-## 📋 TECH STACK (SABİT)
+## TECH STACK (SABİT)
 - **Dil:** Swift 5.9+
 - **UI:** SwiftUI
 - **Mimari:** MVVM
@@ -24,7 +41,7 @@ Hiçbir şey sormadan, aşağıdaki kurallara göre A'dan Z'ye projeyi tamamla.
 
 ---
 
-## 📐 MİMARİ (ZORUNLU)
+## MİMARİ (ZORUNLU)
 ```
 ProjectName/
 ├── App/
@@ -76,7 +93,7 @@ ProjectName/
 
 ---
 
-## 🔧 DOSYA ÜRETME SIRASI
+## DOSYA ÜRETME SIRASI
 ```
 1. ProjectNameApp.swift → @main + WindowGroup
 2. Utils/Constants.swift → baseURL, storageKeys
@@ -123,7 +140,7 @@ ProjectName/
 
 ---
 
-## 🔐 AUTH AKIŞI
+## AUTH AKISI
 ```swift
 // ViewModel
 @MainActor class AuthViewModel: ObservableObject {
@@ -149,7 +166,7 @@ ProjectName/
 
 ---
 
-## 🐛 SIK HATALAR → ÇÖZÜM
+## SIK HATALAR → ÇÖZÜM
 | Hata | Çözüm |
 |------|-------|
 | `Publishing changes from background` | @MainActor + Task { @MainActor in } |
@@ -163,7 +180,7 @@ ProjectName/
 
 ---
 
-## 🏁 BİTİRME CHECKLIST
+## BİTİRME CHECKLIST
 ```
 - [ ] Proje Xcode'da build + run başarılı
 - [ ] Auth (login + register + logout) çalışıyor
@@ -178,3 +195,4 @@ ProjectName/
 - [ ] .gitignore var
 - [ ] README.md var
 ```
+

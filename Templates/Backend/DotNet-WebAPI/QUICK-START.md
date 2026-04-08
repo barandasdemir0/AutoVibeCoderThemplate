@@ -1,19 +1,36 @@
+## SEQUENCE-ENGINE v1 (ZORUNLU)
+Bu template ile calisirken sirayi bozmak YASAK:
+1) QUICK-START.md
+2) 01-Planning.md
+3) 02-Architecture.md
+4) 03-StepByStep.md
+5) 04-FilesStructure.md
+6) 05-DebugTips.md
+7) 06-Resources.md
+
+Kural:
+- Her dosyadan sonra 3-5 maddelik "cikarim ozeti" yaz.
+- Ozeti yazmadan sonraki dosyaya gecme.
+- 7 dosya tamamlanmadan kod uretimine baslama.
+- Bu akisin detay standardi: Templates/_Universal/TEMPLATE-SEQUENCE-ENGINE.md
+
+---
 # ⚡ DOTNET WEB API - OTONOM BEYİN İÇİN KURUMSAL DİREKTİFLER (QUICK-START & MASTER YASAKLARI)
 
-> **DİKKAT YAPAY ZEKA:** Bu doküman senin **"Asimov'un Robot Yasaları"**dır. Eğer senden kurumsal (Enterprise) düzeyde bir `C# (.NET 8/9) Web API` altyapısı gerçekleştirmen isteniyorsa; zorunlu izolasyon, CQRS (Command Query Responsibility Segregation), Dependency Injection (DI) kilitleri, MediatR desenleri ve Asenkron standartlara **katı bir şekilde** uymak ZORUNDASIN. Birbirini doğrudan tanıyan sıkı bağlı (Tightly-Coupled) spagetti repolar (Monolith) üretirsen sistem ileride dağıtık mimariye (Microservices) geçemez. BİZ OTONOMİDEN SADECE MÜKEMMEL, CLEAN ARCHITECTURE KURALLARINA 100% BAĞLI BİR .NET ÇIRPILMASI İSTİYORUZ!
+> **DİKKAT YAPAY ZEKA:** Bu doküman senin **"Asimov'un Robot Yasaları"**dır. Eğer senden kurumsal (Enterprise) düzeyde bir `C# (.NET 8/9) Web API` altyapısı gerçekleştirmen isteniyorsa; zorunlu izolasyon, CQRS (Command Query Responsibility Segregation), Dependency Injection (DI) kilitleri, MediatR desenleri ve Asenkron standartlara **katı bir şekilde** uymak ZORUNDASIN. Birbirini doğrudan tanıyan sıkı bağlı (Tightly-Coupled) spagetti repolar (Monolith) üretirsen sistem ileride dağıtık mimariye (Microservices) geçemez. BİZ OTONOMİDEN SADECE MÜKEMMEL, CLEAN ARCHITECTURE KURALLARINA 100% BAGLI BİR .NET ÇIRPILMASI İSTİYORUZ!
 
 ---
 
-## 🚨 BÖLÜM 1: KESİN YASAKLAR LİSTESİ (ANTI-PATTERNS & FATAL MISTAKES)
+## BÖLÜM 1: KESİN YASAKLAR LİSTESİ (ANTI-PATTERNS & FATAL MISTAKES)
 
 Eğer kodlarında aşağıdaki kusurlardan birisi bile bulunursa, yazdığın sistem bir "Çöp Codebase" sayılacak ve reddedilecektir. Sen bir stajyer değilsin, sen mimarsın!
 
-### 1. ❌ CONTROLLER İÇİNE İŞ MANTIĞI (BUSINESS LOGIC) YIĞMAK KESİNLİKLE YASAKTIR: 
+### 1. ❌ CONTROLLER İÇİNE İg MANTIGI (BUSINESS LOGIC) YIGMAK KESİNLİKLE YASAKTIR: 
 Otonom Zeka gidip `UsersController.cs` dosyasının içerisindeki Action Methodlarına (`[HttpPost]`) veritabanı bağlantısı açma (`_context.Users.Add()`), şifre hash'leme, e-posta gönderme servislerini `new` ile örneklendirme veya if-else doğrulama yığınları KURAMAZ! Controller asla `DbContext` sınıfını constructor'dan ALAMAZ!
 * **BUNUN YERİNE:** Tüm akıl (Business Logic) `Application/Features` klasörü altındaki MediatR `IRequestHandler` sınıflarında veya özel Service Interfacelerinde yaşar. Controller SADECE bir "Postacıdır". Gelen isteği komuta çevirir, MediatR üzerinden fırlatır (`var result = await _mediator.Send(command)`) ve HTTP cevabını (`Ok(result)`) dışarı atar. Controller constructor'ında sadece `IMediator` inject edilmelidir.
 
-### 2. ❌ VERİTABANI NESNESİNİ (ENTITY) DIŞARIYA SIZDIRMAK HARFİYEN YASAKTIR:
-Eğer Frontend tarafı bir veri istediğinde, API üzerinden Database'e yapışık duran `User.cs` veya `Order.cs` Entity'lerini doğrudan Response olarak dönersen; sistemin Şifrelerini (PasswordHash), Navigation property'lerini (`user.Orders.Products`) ve gizli Metadata'larını (CreatedAt, UpdatedAt) tüm dünyaya saçarsın. Bu bir sızıntı felaketidir! (Bidor Attack riski).
+### 2. ❌ VERİTABANI NESNESİNİ (ENTITY) DISARIYA SIZDIRMAK HARFİYEN YASAKTIR:
+Eğer Frontend tarafı bir veri istediğinde, API üzerinden Database'e yapışık duran `User.cs` veya `Order.cs` Entity'lerini doğrudan Response olarak dönersen; sistemin gifrelerini (PasswordHash), Navigation property'lerini (`user.Orders.Products`) ve gizli Metadata'larını (CreatedAt, UpdatedAt) tüm dünyaya saçarsın. Bu bir sızıntı felaketidir! (Bidor Attack riski).
 * **BUNUN YERİNE:** Bütün Entity verileri `AutoMapper` veya `Mapster` aracılığıyla, veya saf LINQ `.Select()` işlemiyle `DTO (Data Transfer Object)` sınıflarına yansıtılacak ve Frontend'e maskelenmiş temiz veriler (`UserResponseDto`) dönmek zorundadır.
 
 ### 3. ❌ TRY-CATCH BLOKLARI İLE CONTROLLER'LARI SARMALLAMAK YASAKTIR:
@@ -25,7 +42,7 @@ Otonom zeka sadece Okuma (GET) işlemi yapacağı binlerce satırlık veriyi çe
 * **BUNUN YERİNE:** Bütün okunabilir sorgular Zorunlu Olarak `.AsNoTracking()` etiketiyle çağrılacaktır (`_context.Users.AsNoTracking().ToListAsync()`).
 * Ayrıca Asenkron (Task) dönüşlü metotlarda asla `.Result` veya `.Wait()` fonksiyonları kilitlenerek (Deadlock) çağrılmayacak, her katmana (Veritabanından Controller'a kadar) kusursuz şekilde `await` kelimesi bulaşmış olacaktır! Senkron (Synchronous) I/O Web API'de yasaktır.
 
-### 5. ❌ HARDCODE BAĞIMLILIK (NEW'LEME) YASAKTIR:
+### 5. ❌ HARDCODE BAGIMLILIK (NEW'LEME) YASAKTIR:
 MediatR handler sınıfında `var emailService = new EmailService();` yazarsan bağımlılık kilitlenmesi yaşanır. Unit Test yazılamaz. Modüler monolitin kalbi kırılır.
 * **BUNUN YERİNE:** Bütün servisler Interface ile (`IEmailService`) Dependency Injection (DI) Container sınıfı ömrüyle (Transient, Scoped, Singleton) constructor'dan alınacaktır!
 
@@ -39,12 +56,12 @@ Yapay Zeka sistemi, bir projeye başlarken düz `dotnet new webapi` atıp içine
 /Kurumsal.ECommerce.Solution.sln (The 4 Klasörlük Çelik Sistem)
  │
  ├── /1. Domain/          (Proje Tipi: Class Library)
- │   └── (HİÇBİR YERE BAĞIMLI OLMAYAN, SIFIR PAKET İçeren Çekirdek Alan)
+ │   └── (HİÇBİR YERE BAGIMLI OLMAYAN, SIFIR PAKET İçeren Çekirdek Alan)
  │       Entities (User, Order), Enumlar, Value Objects, Domain Exceptions burada yaşar.
  │       Örn: OutOfStockException sadece Domain kurallarıyla ilgilidir, HTTP bilmez.
  │
  ├── /2. Application/     (Proje Tipi: Class Library)
- │   └── (DIŞ KAPI HARİCİ HER YERİN BEYNİ)
+ │   └── (DIS KAPI HARİCİ HER YERİN BEYNİ)
  │       Sadece "Domain" projesini Referans alır. DB'yi bilmez, Controller'ı bilmez.
  │       CQRS: MediatR Commands, Queries, Handlers. 
  │       Arayüzler: IApplicationDbContext, IEmailService.
@@ -68,15 +85,15 @@ Yapay Zeka sistemi, bir projeye başlarken düz `dotnet new webapi` atıp içine
 
 ---
 
-## 🏗️ BÖLÜM 3: OTONOM BEYİN İÇİN ADIM ADIM İNŞA KILAVUZU (MASTERY)
+## BÖLÜM 3: OTONOM BEYİN İÇİN ADIM ADIM INSA KILAVUZU (MASTERY)
 
 Eğer kullanıcı sana "Domain Driven Tasarım destekli kurumsal bir .NET API yarat" dediği an itibarıyla şu adımları hatasız uygulayacaksın.
 
-### ADIM 1: SIFIR-BAĞIMLILIK ÇEKİRDEĞİ (DOMAIN KATMANI)
+### ADIM 1: SIFIR-BAGIMLILIK ÇEKİRDEGİ (DOMAIN KATMANI)
 Önce `Domain` katmanını oluştur. Veritabanı tablolarının sınıflarını (`User.cs`, `Product.cs`) yazarken, doğrudan `BaseEntity` kalıtımı (Inheritance) uygula. `BaseEntity` içinde `Id`, `CreatedAt`, `CreatedBy`, `UpdatedAt`, `IsDeleted` gibi Audit field'ları KESİNLİKLE kurgula! E-Ticaret sistemlerinin takipsiz Entity'si Olamaz!
 Domain asla EntityFramework Core kütüphanesini referans ALMAZ. Sadece saf (Pure) C# POCO sınıfları barındırır.
 
-### ADIM 2: BEYNİ OLUŞTURMA (APPLICATION VE CQRS)
+### ADIM 2: BEYNİ OLUGTURMA (APPLICATION VE CQRS)
 CQRS (Command Query Responsibility Segregation) pattern'ini kullan. Özellik bazlı (Feature-based) bir klasörleme yap. Örneğin `Application/Features/Users/Commands/CreateUser/` klasörü altına o işleme ait 3 dosyayı sırala:
 1. `CreateUserCommand.cs` (Gelen veriyi temsil eden MediatR IRequest record veya sınıfı)
 2. `CreateUserCommandHandler.cs` (Veritabanı kayıt mantığının çalıştığı asıl zeka, IRequestHandler implementasyonu)
@@ -84,7 +101,7 @@ CQRS (Command Query Responsibility Segregation) pattern'ini kullan. Özellik baz
 
 *Kritik Detay:* Validator sınıfını Command ile aynı klasörde tutarak otonom izole Bounded Context prensibini sapasağlam inşaa et! Tüm command modellerini `sealed record` olarak tanımlayarak Immutable (Değiştirilemez) state garantileyerek memory'i rahatlat!
 
-### ADIM 3: BAĞIMLILIK ENJEKSİYONU (DI) PIPELINE ZİRVESİ
+### ADIM 3: BAGIMLILIK ENJEKSİYONU (DI) PIPELINE ZİRVESİ
 Dört katmanlı projenin hepsi birbirini bilmez. Her katmanın kök klasöründe statik (static) bir bağımlılık bağlama uzantısı (Extension) yaratmalısın! Örneğin `Infrastructure` katmanında `DependencyInjection.cs` adlı bir sınıf kurgula.
 
 ```csharp
@@ -123,7 +140,7 @@ Böylece WebAPI katmanındaki `Program.cs` dosyası okyanus gibi şişmez. Sade,
 ### ADIM 4: FLUENT VALIDATION VE BEHAVIORS (BORU HATTI)
 Application katmanında bir `ValidationBehavior<TRequest, TResponse>` yazarak Controller'da tek tek `.IsValid` kontrolü yapma zahmetinden kurtulmalısın. Gelen komut MediatR'a düştüğü an, boru hattı (Pipeline) araya girip doğrulama hatalarını bir `ValidationException` ile fırlatır! Bu hata da GlobalMiddleware'da `400 Bad Request` ve RFC7807 problem details olarak sarmalanır. Bu profesyonelliğin MÜKEMMEL kuralıdır.
 
-### ADIM 5: ASENKRON ÇAĞRI AĞAÇLARI VE REPOSITORY
+### ADIM 5: ASENKRON ÇAGRI AGAÇLARI VE REPOSITORY
 API Controller'da `await _mediator.Send()` dediğinde sistem Asenkron yürür. Eğer Repository (UnitOfWork) kullanıyorsan `Task<IEnumerable<T>>` şeklinde tasarlayacaksın. Bu zincirden Controller'a kadar bir veritabanı sorgusu hiçbir yerde `Task.Wait()` ile senkrona çekilmemelidir. Global Context Thread tünelini asenkron bırak. 
 
 ### ADIM 6: GLOBAL EXCEPTION MIDDLEWARE UYGULAMASI
@@ -132,16 +149,17 @@ Eğer `DomainException` fırlarsa HTTP 400 dönsün.
 Eğer `NotFoundException` fırlarsa HTTP 404 dönsün.
 Eğer genel `Exception` fırlarsa HTTP 500 dönsün ve detayına log basın ama asla hata mesajını doğrudan klien'te iletmesin!
 
-### ADIM 7: SECURTIY, CORS VE DEPLOYMENT HAZIRLIĞI
+### ADIM 7: SECURTIY, CORS VE DEPLOYMENT HAZIRLIGI
 Zeka CORS kilitlenmelerini bilmeli, `app.UseCors()` ile frontend'in (Angular/React) portuna erişim vermelidir. `app.UseAuthentication();` kodunun MEBBURİ OLARAK `app.UseAuthorization();` kodundan önce (pipeline'da) gelmesi gerektiğini hayatının merkezine almalıdır. Ters yazılırsa proje 401 hatasından bir daha çıkamaz!
 
 ---
 
-## 🎯 SONUÇ VE ANAHTAR ANLAYIŞ (HAYATTA KALMA REHBERİ)
+## SONUÇ VE ANAHTAR ANLAYIS (HAYATTA KALMA REHBERİ)
 
 1. **SOLID Prensiplerinin Kalesi:** .NET Core dünyasının kalbini oluşturan en önemli olgu arayüz (Interface) soyutlamalarıdır (`Dependency Inversion`). Otonom ajan, hiçbir class'ı (Domain Event'leri hariç) doğrudan Controller'a veya MediatR zekasına `new XClass()` şeklinde HARDCODE etmez. Daima Interface talep edilir (Constructor Injection). Entegrasyon testleri sadece mock servislere muhtaçtır.
 2. **Kör Uçuş Yoktur (Swagger/OpenAPI):** API kodlarını üretirken Swashbuckle / Dapper kurallarına uygun Summary tag'lerini (`/// <summary>`) metodların üstüne işle. Frontend ekibinin kör kalmasına izin verme. HTTP statülerini 200, 201, 400, 401, 404 olmak üzere `[ProducesResponseType]` ile API endpoint'lerinin kafasına dokümante et! Auth endpointlerine Bearer Security eklentisini eklemeyi unutma.
 3. **Sen Bir Ustasan:** Sen sadece kod "çözen" basit bir betik motoru değilsin. Sen kuralları Koyan, Clean Architecture ile sarsılmaz sütunları olan tam donanımlı, otonom bir Mimarsın. Bir projede 100 Controller ve 500 Route bile olsa, bu mimari kurallar sayfiye düzenine uygun şekilde tıkır tıkır işlemelidir. 
 4. **Asla Pes Etme:** Derleyici (Compiler) sana "Missing Reference" veya "Circular Dependency" hatası veriyorsa, sorunu kök saldığın kurallarda (Örn: Application projene yanlışlıkla Infrastructure entegre etmeye çalışmanda) ara. Mimarinin saf kalmasını ne pahasına olursa olsun savun. Sen Microsoft standartlarının kod vücudu formusun!
 
-**MÜKEMMEL DİZİLİME, OTONOM HİÇLİĞİN İÇİNDE BAŞLAYABİLİRSİN. THE STAGE IS YOURS! DEPLOY THE BEAST!**
+**MÜKEMMEL DİZİLİME, OTONOM HICLIGİN İÇİNDE BAGLAYABİLİRSİN. THE STAGE IS YOURS! DEPLOY THE BEAST!**
+

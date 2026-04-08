@@ -18,17 +18,29 @@ Hiçbir şeyi sormadan en best practice yaklaşımla yap.
 
 Sonra sırasıyla şu dosyaları AI'a okut:
 1. `_Universal/MASTER-PROMPT.md` ← BU DOSYA (şu an okuyorsun)
-2. `_Universal/AI-RULES.md` ← Kod yazma kuralları
-3. `_Universal/CONFIG-RULES.md` ← Seçilen tech'in config/pipeline sırası
-4. Seçtiğin template'in `01-Planning.md` ← Tech stack
-5. Seçtiğin template'in `02-Architecture.md` ← Mimari
-6. İhtiyaca göre `_Universal/` altından ilgili rehberler
-7. `_Universal/FILE-TRACKER.md` ← 📝 Her dosyayı buraya kaydet!
-8. `AI_DEVELOPMENT_LOG.md` ← KÖK DİZİNDE: AI'ın zorunlu Hafıza Kütüğü! Başlamadan OKU, bitirmeden YAZ!
+2. `_Universal/UNIVERSAL-READING-ORDER.md` ← Hangi dosya ne zaman okunur (tek kaynak)
+3. `_Universal/PROJECT-DISCOVERY-QUESTION-GUIDE.md` ← En detaylı soru rehberi
+4. `_Universal/CONTEXT-MEMORY-RAG-POLICY.md` ← Seçmeli bağlam + özetleme + hafıza disiplini
+5. `_Universal/AI-RULES.md` ← Kod yazma kuralları
+6. `_Universal/AUTONOMY-BRAIN.md` ← Kalıcı hafıza + context engineering protokolü
+7. `_Universal/AUTONOMOUS-OPERATING-SYSTEM.md` ← Adım adım tam otonom işletim kuralı
+8. `_Universal/AI-BRAIN-ORCHESTRATOR.md` ← Mimari/stack karar motoru + soru sorma politikası + otomatik ledger yazımı
+9. `_Universal/TEMPLATE-SEQUENCE-ENGINE.md` ← 6 dosya + QUICK-START zorunlu sıra motoru
+10. `_Universal/CONFIG-RULES.md` ← Seçilen tech'in config/pipeline sırası
+11. Seçtiğin template'in `01-Planning.md` ← Tech stack
+12. Seçtiğin template'in `02-Architecture.md` ← Mimari
+13. İhtiyaca göre `_Universal/` altından ilgili rehberler
+14. `_Universal/FILE-TRACKER.md` ← 📝 Her dosyayı buraya kaydet!
+15. `AI_DEVELOPMENT_LOG.md` ← KÖK DİZİNDE: AI'ın zorunlu Hafıza Kütüğü! Başlamadan OKU, bitirmeden YAZ!
 
 ---
 
 ## 📋 AI'IN OTONOM ÇALIŞMA PROTOKOLÜ
+
+Ek zorunlu ilke:
+- Kullanıcı net iş hedefi verdiyse gereksiz teknoloji soruları sorma.
+- Emir dışı feature ekleme; kapsam dışı önerileri sadece not olarak sun.
+- Teknoloji seçimi alışkanlıkla değil, ölçeklenebilirlik ve bakım maliyetiyle yapılır.
 
 ### Kullanıcı Fikrini Yazdığında AI Şunları Yapacak:
 
@@ -36,11 +48,18 @@ Sonra sırasıyla şu dosyaları AI'a okut:
 ADIM 1: FİKRİ ANALIZ ET
 ├── Ne tür bir proje? (web, mobil, ML, fullstack)
 ├── Hangi template uygun? (STACK-COMBOS.md'ye bak)
-├── Hangi DB? (DB-GUIDE.md'ye bak)
-├── Auth gerekli mi? (AUTH-JWT.md'ye bak)
-├── Yüksek trafik / Ölçeklenebilirlik? (SCALABILITY.md'ye bak)
-├── Ödeme var mı? (PAYMENT.md'ye bak)
-└── AI entegrasyon var mı? (AI-INTEGRATION.md'ye bak)
+├── Hangi DB? (Domain-Backend/DB-GUIDE.md'ye bak)
+├── Auth gerekli mi? (Domain-Backend/AUTH-JWT.md'ye bak)
+├── Yüksek trafik / Ölçeklenebilirlik? (Domain-Backend/SCALABILITY.md'ye bak)
+├── Ödeme var mı? (Domain-Backend/PAYMENT.md'ye bak)
+└── AI entegrasyon var mı? (Domain-AI-ML/AI-INTEGRATION.md'ye bak)
+
+ADIM 1.5: HAFIZA SENKRONİZASYONU (ZORUNLU)
+├── `AI_CHAT_LEDGER.md` oku → Kullanıcının son net talimatını çıkar
+├── `AI_DECISION_LOG.md` oku → Önceden alınmış mimari kararları koru
+├── `AI_ERROR_LEDGER.md` oku → Tekrarlayan hata riskini düşür
+├── `AI_FEATURE_LEDGER.md` oku → Hangi feature hangi gerekçeyle eklenmiş gör
+└── Bu dört dosya okunmadan kod yazma
 
 ADIM 2: MİMARİYİ KUR
 ├── 02-Architecture.md'deki pattern'i uygula
@@ -70,15 +89,24 @@ ADIM 4: HATA OLURSA
 ├── CONFIG-RULES.md'de pipeline/middleware sırası doğru mu?
 ├── Çöz ve şunları kaydet:
 │   1. 05-DebugTips.md'ye hata+çözüm ekle
-│   2. FILE-TRACKER.md'ye “❌ HATA KARTI” ekle
+│   2. FILE-TRACKER.md'ye "❌ HATA KARTI" ekle
 └── ASLA sessizce geçme — her hatayı logla
 
 ADIM 5: OTONOM HAFIZA KAYDI (MEMORY LEDGER - ZORUNLU)
 ├── Her görevin sonunda kök dizinindeki `AI_DEVELOPMENT_LOG.md` dosyasını AÇ.
 ├── O anki Saati/Dakikayı kaydet.
 ├── Yaptığın dosyaları, karşılaştığın hataları (Çözümleriyle) YAZ!
+├── Yeni feature eklediysen `AI_FEATURE_LEDGER.md` dosyasına neden/nasıl bilgisini yaz.
+├── Hata çözdüysen `AI_ERROR_LEDGER.md` dosyasına kök neden + doğrulamayı yaz.
+├── Kullanıcı sohbetten yön verdiyse `AI_CHAT_LEDGER.md` dosyasına talimat özetini yaz.
 ├── "Bir Sonraki Adım" başlığı altına kendi görevini planla. (Hafıza silinmesine karşı)
 └── Bu kütüğü güncellemeden ASLA KOD YAZMAMAYA DEVAM ET!
+
+ADIM 6: GIT + CI/CD KAPISI (ZORUNLU)
+├── Değişiklikleri anlamlı commit parçalarına böl (`feat:`, `fix:`, `docs:`)
+├── CI için minimum: lint + unit test + build
+├── CI kırmızıysa görev tamamlanmadı kabul edilir
+└── Release notunu `CHANGELOG.md` veya proje loguna yaz
 ```
 
 ---
@@ -92,12 +120,12 @@ Kullanıcı: "Bir e-ticaret sitesi yap"
 AI Düşünce Süreci:
 1. E-ticaret → FullStack gerekli
 2. STACK-COMBOS.md → DotNet-React veya Django-React veya NextJS
-3. DB-GUIDE.md → İlişkisel veri (ürün-kategori-sipariş) → PostgreSQL
-4. AUTH-JWT.md → Kullanıcı login gerekli → JWT
-5. PAYMENT.md → Ödeme gerekli → Stripe
-6. UX-UI-GUIDE.md → Ürün listesi, sepet, checkout UI
-7. REST-API.md → /api/products, /api/orders, /api/auth
-8. LOGGING.md → Sipariş logları, hata logları
+3. Domain-Backend/DB-GUIDE.md → İlişkisel veri (ürün-kategori-sipariş) → PostgreSQL
+4. Domain-Backend/AUTH-JWT.md → Kullanıcı login gerekli → JWT
+5. Domain-Backend/PAYMENT.md → Ödeme gerekli → Stripe
+6. Domain-Product/UX-UI-GUIDE.md → Ürün listesi, sepet, checkout UI
+7. Domain-Backend/REST-API.md → /api/products, /api/orders, /api/auth
+8. Domain-Quality-Ops/LOGGING.md → Sipariş logları, hata logları
 9. BEST-PRACTICES.md → Clean Architecture, SOLID
 → Karar: NextJS-FullStack + Prisma + PostgreSQL + Stripe
 → Alternatif: DotNet-React (enterprise ise)
@@ -107,9 +135,9 @@ AI Düşünce Süreci:
 Kullanıcı: "Kask tespiti yapan bir mobil uygulama yap"
 AI Düşünce Süreci:
 1. Nesne tespiti → ML/AI + Mobile
-2. ML-DATA-TYPES.md → Image (görüntü) → YOLO
+2. Domain-AI-ML/ML-DATA-TYPES.md → Image (görüntü) → YOLO
 3. ComputerVision-YOLO template → YOLOv8 model eğit
-4. MOBILE-ADVANCED.md → Offline mode (sahada internet olmayabilir)
+4. Domain-Mobile/MOBILE-ADVANCED.md → Offline mode (sahada internet olmayabilir)
 5. Flutter-Firebase veya FastAPI backend
 6. Kamera erişimi → real-time detection
 → Karar: YOLO eğitim + FastAPI (ONNX serve) + Flutter (TFLite on-device)
@@ -152,9 +180,9 @@ AI Düşünce Süreci:
 - Her adımdan sonra test et
 - Hata → 05-DebugTips.md'ye + Loglara kaydet
 - Separation of Concerns uygula
-- Code-First yaklaşım (DB-GUIDE.md)
-- Responsive + Dark Mode (UX-UI-GUIDE.md)
-- Loading/Error/Empty state ekle (UX-UI-GUIDE.md)
+- Code-First yaklaşım (Domain-Backend/DB-GUIDE.md)
+- Responsive + Dark Mode (Domain-Product/UX-UI-GUIDE.md)
+- Loading/Error/Empty state ekle (Domain-Product/UX-UI-GUIDE.md)
 ```
 
 ---
@@ -301,7 +329,7 @@ AI her adımdan sonra kendini kontrol edecek:
   - [ ] .gitignore var mı?
   - [ ] .env.example var mı?
   - [ ] README.md var mı?
-  - [ ] PRODUCTION-CHECKLIST.md çalıştırıldı mı?
+  - [ ] Domain-Quality-Ops/PRODUCTION-CHECKLIST.md çalıştırıldı mı?
 
 ❌ SELF-VALIDATION BAŞARISIZSA:
   → Sorunlu maddeleri listele
@@ -320,27 +348,27 @@ ZORUNLU (projeye başlarken):
   2. _Universal/AI-RULES.md          ← Kod yazma kuralları
   3. _Universal/CONFIG-RULES.md      ← Pipeline/config sırası
   4. _Universal/STARTER-USAGE.md     ← Starter code kullanımı
-  5. _Universal/ERROR-PATTERNS.md    ← Hata tanıma ve çözüm
+  5. _Universal/Domain-Quality-Ops/ERROR-PATTERNS.md    ← Hata tanıma ve çözüm
   6. Template'in 01-06 dosyaları     ← Seçilen tech stack
 
 İHTİYACA GÖRE:
-  - AUTH-JWT.md          → Auth varsa
-  - DB-GUIDE.md          → DB seçimi
-  - REST-API.md          → API tasarımı
-  - PAYMENT.md           → Ödeme varsa
-  - AI-INTEGRATION.md    → AI feature varsa
-  - REALTIME.md          → WebSocket/chat varsa
-  - CACHING.md           → Cache stratejisi
-  - SCALABILITY.md       → Yüksek trafik / Rate Limit / Queue
-  - FILE-UPLOAD.md       → Dosya yükleme varsa
-  - MOBILE-ADVANCED.md   → Offline, push, lifecycle
-  - MOBILE-PUBLISH.md    → Store yayınlama
-  - UX-UI-GUIDE.md       → UI tasarımı
+  - Domain-Backend/AUTH-JWT.md          → Auth varsa
+  - Domain-Backend/DB-GUIDE.md          → DB seçimi
+  - Domain-Backend/REST-API.md          → API tasarımı
+  - Domain-Backend/PAYMENT.md           → Ödeme varsa
+  - Domain-AI-ML/AI-INTEGRATION.md      → AI feature varsa
+  - Domain-Backend/REALTIME.md          → WebSocket/chat varsa
+  - Domain-Backend/CACHING.md           → Cache stratejisi
+  - Domain-Backend/SCALABILITY.md       → Yüksek trafik / Rate Limit / Queue
+  - Domain-Backend/FILE-UPLOAD.md       → Dosya yükleme varsa
+  - Domain-Mobile/MOBILE-ADVANCED.md    → Offline, push, lifecycle
+  - Domain-Mobile/MOBILE-PUBLISH.md     → Store yayınlama
+  - Domain-Product/UX-UI-GUIDE.md       → UI tasarımı
 
 BİTİRİRKEN:
-  - PRODUCTION-CHECKLIST.md   ← Son kontrol
-  - DEPLOY-CICD.md            ← Deploy hazırlık
-  - TESTING.md                ← Test yazma
+  - Domain-Quality-Ops/PRODUCTION-CHECKLIST.md   ← Son kontrol
+  - Domain-Quality-Ops/DEPLOY-CICD.md            ← Deploy hazırlık
+  - Domain-Quality-Ops/TESTING.md                ← Test yazma
 ```
 
 ---

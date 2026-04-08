@@ -1,17 +1,34 @@
+## SEQUENCE-ENGINE v1 (ZORUNLU)
+Bu template ile calisirken sirayi bozmak YASAK:
+1) QUICK-START.md
+2) 01-Planning.md
+3) 02-Architecture.md
+4) 03-StepByStep.md
+5) 04-FilesStructure.md
+6) 05-DebugTips.md
+7) 06-Resources.md
+
+Kural:
+- Her dosyadan sonra 3-5 maddelik "cikarim ozeti" yaz.
+- Ozeti yazmadan sonraki dosyaya gecme.
+- 7 dosya tamamlanmadan kod uretimine baslama.
+- Bu akisin detay standardi: Templates/_Universal/TEMPLATE-SEQUENCE-ENGINE.md
+
+---
 # ⚡ QUICK-START — Flutter Test Suite (Unit + Widget + Integration)
 
 > AI'a sadece BU dosyayı + proje fikrini ver. Gerisini otonom yapacak.
 
 ---
 
-## 🤖 AI TALİMATI
+## AI TALİMATI
 
 Sen bir otonom AI geliştiricisisin. Kullanıcı sana mevcut bir Flutter projesinin test ihtiyacını verecek.
 Hiçbir şey sormadan, aşağıdaki kurallara göre kapsamlı test suite'i oluştur.
 
 ---
 
-## 📋 TECH STACK (SABİT)
+## TECH STACK (SABİT)
 - **Unit Test:** flutter_test (built-in)
 - **Widget Test:** flutter_test + WidgetTester
 - **Integration Test:** integration_test (E2E on device)
@@ -21,7 +38,7 @@ Hiçbir şey sormadan, aşağıdaki kurallara göre kapsamlı test suite'i oluş
 
 ---
 
-## 📐 TEST MİMARİSİ (ZORUNLU)
+## TEST MİMARİSİ (ZORUNLU)
 ```
 test/
 ├── unit/
@@ -60,7 +77,7 @@ integration_test/
 
 ---
 
-## 🔧 TEST YAZMA SIRASI
+## TEST YAZMA SIRASI
 ```
 1. pubspec.yaml → dev_dependencies (flutter_test, mockito, build_runner, integration_test)
 2. test/fixtures/mock_data.dart → Fake model instances
@@ -80,7 +97,7 @@ integration_test/
 
 ---
 
-## 📝 TEST PATTERN'LERİ
+## TEST PATTERN'LERİ
 
 ### Unit Test — Model
 ```dart
@@ -159,7 +176,7 @@ testWidgets('LoginScreen shows validation error', (tester) async {
   
   // Expect validation errors
   expect(find.text('Email boş olamaz'), findsOneWidget);
-  expect(find.text('Şifre boş olamaz'), findsOneWidget);
+  expect(find.text('gifre boş olamaz'), findsOneWidget);
 });
 
 testWidgets('LoginScreen calls login on valid form', (tester) async {
@@ -226,7 +243,7 @@ void main() {
 
 ---
 
-## 🐛 SIK HATALAR → ÇÖZÜM
+## SIK HATALAR → ÇÖZÜM
 | Hata | Çözüm |
 |------|-------|
 | `pumpAndSettle timed out` | Sonsuz animasyon var → pump(Duration) kullan |
@@ -240,7 +257,7 @@ void main() {
 
 ---
 
-## 🏁 BİTİRME CHECKLIST
+## BİTİRME CHECKLIST
 ```
 - [ ] flutter test → tüm testler geçiyor
 - [ ] flutter test --coverage → coverage dosyası oluşuyor
@@ -253,3 +270,4 @@ void main() {
 - [ ] Tüm test dosyaları _test.dart ile bitiyor
 - [ ] build_runner mock generation çalışıyor
 ```
+

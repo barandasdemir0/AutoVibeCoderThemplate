@@ -9,7 +9,7 @@
 Eski usül Apple geliştiricileri "ViewController" isimli devasa sınıflara tapardı. SwiftUI ile `UIViewController` KONSEPTİ YOK OLMUŞTUR.
 
 ### Otonomi İçin Saf SwiftUI Sınırları:
-* **Declarative (Bildirimsel) Çizim:** Ajan "Butonun rengini mavi yap" demez, "Buton, `viewModel.isActive` true ise Mavi, değilse Gri" komutunu yazar. Her şey State Binding (Bağlı Durum) üzerinden tetiklenir.
+* **Declarative (Bildirimsel) Çizim:** Ajan "Butonun rengini mavi yap" demez, "Buton, `viewModel.isActive` true ise Mavi, değilse Gri" komutunu yazar. Her şey State Binding (Bağlı Durum) üzerinden tetiklenir.
 * **Apple Silicon (M1/M2) ve Concurrency (Eşzamanlılık):** Ağ istekleri yaparken GCD (Grand Central Dispatch - `DispatchQueue.main.async`) gibi bloklu hantal yapılar büyük oranda terk edilmiştir. Otonomi, API call ve Database limitlerinde SADECE Modern Swift `async / await` yapısını veya `Combine` freamwork'ünün publisher sistemlerini kullanmak zorundadır!
 * **Memory & View Lifecycle:** Struct olarak tanımlanan bir View, class olmadığı için Reference değil Value type'tır. Sürekli yıkılır ve yeniden yaratılır (Bu yüzden çok hafiftir). Otonomi View içindeki Değişkenleri korumak için ZORUNLU olarak `@State`, Obje korumak için `@StateObject` (iOS 14+) kullanacaktır!
 

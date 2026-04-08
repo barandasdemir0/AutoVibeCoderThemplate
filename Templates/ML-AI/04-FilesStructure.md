@@ -1,56 +1,51 @@
-# 4️⃣ ML / AI Geliştirme - Kurumsal MLOps File Structure (Klasör Standartı)
+# 4?? ML / AI Geliştirme - Kurumsal MLOps File Structure (Klasör Standardı)
 
-> **ZORUNLU DİZİLİM:** Projede sadece bir `script.py` varsa bu Kod Çöptür. Endüstri Standardı olan "Cookiecutter Data Science" mantığını temel alan Otonom yapay zeka Klasör İzolasyonu Projenizin Geleceğidir. Data Bambaşka, Model Bambaşka, UYGULAMA (APP) Bambaşka Dizinlerden Kontrol Edilir!!.
+> **ZORUNLU DİZİLİM:** Projede sadece bir `script.py` varsa bu kod çöptür. Cookiecutter Data Science mantığını temel alan klasör izolasyonu, projenin geleceğidir. Veri başka, model başka, uygulama başka dizinlerden kontrol edilir.
 
 ---
 
-## 📂 En Kurumsal Yapı: The MLOps Enterprise Architecture
-
-Bir Cihaza (Server) Hem Eğitim Yaptırıyor Hem De Tahmin Sağlayan (Full-Stack Data) yapısı:
+## En Kurumsal Yapı: The MLOps Enterprise Architecture
 
 ```text
 ML-AI-Project/
-├── data/                    # VERİ KÖKÜ (Bu Klasör .gitignore a EKLENİLMELİDİR!)
-│   ├── raw/                 # Saf Dışardan Gelen Csv/Gorsel (Buna Kesinlikle Degiştirilemez-ReadOnly)
-│   ├── interim/             # Arasıra dönüştürülmüş Ara veriler
-│   └── processed/           # Modele Doğrudan Beslenecek Temiz Ve Hazır (Tensorlanmış) Veriler
+├── data/                    # Veri kökü (.gitignore'a eklenmeli)
+│   ├── raw/                 # Ham kaynak veri (read-only)
+│   ├── interim/             # Ara dönüştürülmüş veriler
+│   └── processed/           # Modele hazır temiz veriler
 │
-├── models/                  # EĞİTİLMİŞ AĞIRLIKLARIN (.pth, .onnx) TIKILDIĞI YER
-│   └── v1_best_model.pth    # (Model Boyutu 100Mb vs ise BurasıDa Gite atılamaz DVC ile saklanır!)
+├── models/                  # Eğitilmiş ağırlıklar (.pth, .onnx)
+│   └── v1_best_model.pth
 │
-├── notebooks/               # 🧪 (Sadece Deneyler) VERİ ANALİZİ ÇÖPLÜĞÜ MÜKEMMELLİĞİ!
-│   └── 01-eda-analysis.ipynb# Data Scientistin Keşifleri Otonom AItestleri vs
+├── notebooks/               # Sadece deneysel analizler
+│   └── 01-eda-analysis.ipynb
 │
-├── src/                     # 🚀 ÇEKİRDEK İŞ/PYTHON KODLARI
-│   ├── data/                # VERİ DÖNÜŞÜM MANİPÜLASYONU
-│   │   └── make_dataset.py  # Data Okuyucu Pompalar.
-│   │
-│   ├── features/            # FEATURE ENGINEERING
-│   │   └── build_features.py# NLP ise Tokenize Eden, Görselse Kesen fonksiyonlar.
-│   │
-│   ├── models/              # THE BEYIN CLASSLARI VE EĞİTİM MOTORU
-│   │   ├── evaluate.py      # Final Validation Accuracy Basar (Confusion Matrix Raporcusu)
-│   │   ├── networks.py      # Class CNN(nn.Module): Buradadır. Sadece Model Mimarisi.
-│   │   └── train.py         # Main Çalıştırıcı (Model i Ve Datayı Birleştirip Vites Atar).
-│   │
-│   └── utils/               # Uygulama Matematik Hilesi, Seed Kilitleyciler.
-│       └── metrics.py 
+├── src/                     # Çekirdek Python kodları
+│   ├── data/
+│   │   └── make_dataset.py
+│   ├── features/
+│   │   └── build_features.py
+│   ├── models/
+│   │   ├── evaluate.py
+│   │   ├── networks.py
+│   │   └── train.py
+│   └── utils/
+│       └── metrics.py
 │
-├── app/                     # 🚀 İNFERENCE THE SERVER / KULLANICI ARAYÜZÜ (FastAPI)
-│   ├── api.py               # Uvicorn Çalıştırıcısı Ve Post(/Predict) Endpointsler
-│   ├── schemas.py           # Zod Yok Burada Pydantic Var! (FastAPI ile Mükemmel Payload Kontrolü)
-│   └── service.py           # Modelin (singleton) Olarak RAM'e Oturtuldugu Sınıf.
+├── app/                     # Inference server / kullanıcı arayüzü (FastAPI)
+│   ├── api.py
+│   ├── schemas.py
+│   └── service.py
 │
-├── .gitignore               # The Data Ve Modelleri Çöpe (Gite yollanmayacak) Tutar.
-├── config.yaml              # HİPER-PARAMETRELER: Learning_rate=0.01, Batch=64.
-├── requirements.txt         # KURULUM THE KİTAPI (pip install -r)
-└── Dockerfile               # Production Deploy Kalıbı.
+├── .gitignore
+├── config.yaml
+├── requirements.txt
+└── Dockerfile
 ```
 
 ---
 
-## ⚠️ Kritik Mimari Kurallar (Files Rulebook)
+## Kritik Mimari Kurallar
 
-1. **Jupyter Notebook The Legacy Katı:** Notebook (`.ipynb`) Dosyalarının İçine Otonom Yapay zeka Class Mimarisi Veya Eğitimi Komple Yıkamaz. Notebooklar **SADECE** Veriyi Anlamak (Graphs, Pandas analizi) İcin Kullanılabilir!. Sürdürülebilir Bir MLOps Projesinde Kaynak Kod YALNIZCA (Python `.py`) Cıktılarıyla Kurulabilir!!. Notebookları Main Kod olarak Verme Bitti!
-2. **Hard Coded Path Yasakları:** Otonom Zeka Bir Veriyi Okurken `pandas.read_csv('C:/Users/Ali/Desktop/data.csv')` YAZAMAZ (Evrişimcinin Korkunç Hatası). Proje Rootundan Ve OS Paths libraryleri Kulanılarak (The Relative veya Absolute Dynamic Path İle): `os.path.join(ROOT_DIR, "data", "raw", "data.csv")` Formatıyla Otonom Kurallar İşlenir!! Proje Başka Bilgisayrada Crash olmaz!
-3. **Pydantic İle FastAPI Koruması:** FastAPI Serverının İçerisinde Otonomi; Dışarıdan Gelen Parametreyi Doğrulamadan Modele (Süremez). Eğer Görüntü (Resim) Bekliyor İse, The Body içerisinde Mutlaka Multipart File Veya Pydantic Mimarisi Ile Kurumsal Olarak Kontrol Ceker!. Modeli Arındırır!.
+1. **Notebook katı:** Notebook dosyaları modelin ana kaynağı değildir; yalnızca veri analizi için kullanılır.
+2. **Hard-coded path yasağı:** Veri yolları sabit masaüstü yolu ile yazılmaz; dinamik path yapısı kullanılır.
+3. **Pydantic ile FastAPI koruması:** Dışarıdan gelen parametreler doğrulanmadan modele aktarılmaz.
