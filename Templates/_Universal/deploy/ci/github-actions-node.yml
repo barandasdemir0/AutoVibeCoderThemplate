@@ -1,0 +1,61 @@
+# ============================================
+# GitHub Actions: Node.js (Express/NestJS) CI/CD Pipeline
+# ============================================
+
+name: Node.js CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:7
+        ports: ['27017:27017']
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Test
+        run: npm test -- --coverage --watchAll=false
+        env:
+          MONGO_URI: "mongodb://localhost:27017/testdb"
+          REDIS_URL: "redis://localhost:6379"
+          JWT_SECRET: "test-secret-key-for-ci-pipeline"
+          NODE_ENV: "test"
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        if: always()
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t ${{ github.repository }}:${{ github.sha }} .
